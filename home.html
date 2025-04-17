@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TakeItEase - Relax. Recharge. Reconnect.</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">TakeItEase</a>
+      <div class="nav-links">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#testimonials" class="nav-link">Testimonials</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fas fa-sun"></i>
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="menu-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="app-container">
+    <header id="home" class="hero-header">
+      <div class="hero-content">
+        <h1 class="hero-title">Welcome to TakeItEase</h1>
+        <div class="typing-container">
+          <span id="typing-text"></span>
+          <span class="cursor">|</span>
+        </div>
+        <a href="#services" class="scroll-down-btn">
+          <span>Discover Our Services</span>
+          <i class="fas fa-chevron-down"></i>
+        </a>
+      </div>
+    </header>
+
+    <section id="services" class="services-section">
+      <div class="section-header">
+        <h2 class="section-title">Our Therapy Services</h2>
+        <p class="section-subtitle">Discover the perfect therapy to help you relax and recharge</p>
+        <div class="service-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="physical">Physical</button>
+          <button class="filter-btn" data-filter="mental">Mental</button>
+          <button class="filter-btn" data-filter="social">Social</button>
+        </div>
+      </div>
+      <div class="services-grid" id="services-container">
+        <!-- Services will be dynamically inserted here -->
+      </div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="about-container">
+        <div class="about-image">
+          <img src="PHOTO-2025-04-17-13-53-00.jpg" alt="About TakeItEase" class="about-img">
+          <div class="about-image-accent"></div>
+        </div>
+        <div class="about-content">
+          <h2 class="section-title">About Us</h2>
+          <p class="about-text">At TakeItEase, we believe in the power of relaxation and mindfulness to transform lives. Our mission is to provide accessible therapeutic solutions that help you disconnect from stress and reconnect with your inner peace.</p>
+          <p class="about-text">Founded in 2023, our team of wellness experts has developed a range of therapeutic approaches that cater to different needs and preferences.</p>
+          <div class="stats-container">
+            <div class="stat-item">
+              <span class="stat-number">5+</span>
+              <span class="stat-label">Happy Clients</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">8</span>
+              <span class="stat-label">Therapy Types</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="testimonials-section">
+      <div class="section-header">
+        <h2 class="section-title">What Our Clients Say</h2>
+        <p class="section-subtitle">Real stories from people who have found peace with our therapies</p>
+      </div>
+     <!-- Replace the existing testimonials section with this static HTML version -->
+<section id="testimonials" class="testimonials-section">
+  <div class="section-header">
+    <h2 class="section-title">What Our Clients Say</h2>
+    <p class="section-subtitle">Real stories from people who have found peace with our therapies</p>
+  </div>
+  <div class="testimonial-slider-container">
+    <div class="testimonial-slider static-testimonials">
+      <!-- Static Testimonial 1 -->
+      <div class="testimonial-card">
+        <img src="PHOTO-2025-04-17-13-57-59.jpg" alt="Sarah Johnson" class="testimonial-avatar">
+        <p class="testimonial-quote">"TakeItEase has completely transformed my approach to stress management. The audio therapy sessions are my daily ritual now!"</p>
+        <h3 class="testimonial-author">Arnav Sharma</h3>
+        <p class="testimonial-role">Marketing Executive</p>
+      </div>
+      
+      <!-- Static Testimonial 2 -->
+      <div class="testimonial-card">
+        <img src="PHOTO-2025-04-08-12-34-24.jpg" alt="Michael Chen" class="testimonial-avatar">
+        <p class="testimonial-quote">"After trying the yoga therapy program, I've noticed significant improvements in both my physical and mental wellbeing."</p>
+        <h3 class="testimonial-author">Kushagra Harit</h3>
+        <p class="testimonial-role">Software Developer</p>
+      </div>
+      
+      <!-- Static Testimonial 3 -->
+      <div class="testimonial-card">
+        <img src="PHOTO-2025-04-17-14-06-01.jpg" alt="Emma Rodriguez" class="testimonial-avatar">
+        <p class="testimonial-quote">"The reading therapy recommendations were perfectly tailored to my needs. I feel more centered and focused than ever before."</p>
+        <h3 class="testimonial-author">Ujjwal Nimotra</h3>
+        <p class="testimonial-role">School Teacher</p>
+      </div>
+      
+      <!-- Static Testimonial 4 -->
+      <div class="testimonial-card">
+        <img src="PHOTO-2025-04-17-14-01-03.jpg" alt="David Wilson" class="testimonial-avatar">
+        <p class="testimonial-quote">"Laughing therapy sessions have brought joy back into my life during a very difficult time. I'm forever grateful."</p>
+        <h3 class="testimonial-author">Abhishek Mishra</h3>
+        <p class="testimonial-role">Retired Accountant</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Add this CSS to your stylesheet to properly display static testimonials -->
+<style>
+.static-testimonials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+}
+
+.static-testimonials .testimonial-card {
+  flex: 1 1 280px;
+  max-width: 340px;
+  transform: none !important;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+/* Hide the slider controls since we don't need them anymore */
+.testimonials-section .slider-controls {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .static-testimonials .testimonial-card {
+    flex: 1 1 100%;
+  }
+}
+</style>
+        <div class="slider-controls">
+          <button id="prev-testimonial" class="slider-btn" aria-label="Previous testimonial">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <div class="slider-dots" id="slider-dots">
+            <!-- Dots will be dynamically inserted here -->
+          </div>
+          <button id="next-testimonial" class="slider-btn" aria-label="Next testimonial">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+      <div class="section-header">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Find answers to common questions about our therapeutic approaches</p>
+      </div>
+      <div class="faq-container">
+        <div class="accordion" id="faq-accordion">
+          <!-- FAQs will be dynamically inserted here -->
+        </div>
+      </div>
+    </section>
+    <!-- Add this section right above the contact section -->
+<section id="pricing" class="pricing-section">
+  <div class="section-header">
+    <h2 class="section-title">Our Pricing Plans</h2>
+    <p class="section-subtitle">Choose the perfect plan to support your wellness journey</p>
+  </div>
+  
+  <div class="pricing-container">
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3 class="pricing-title">Basic</h3>
+        <div class="pricing-price">
+          <span class="currency">$</span>
+          <span class="amount">29</span>
+          <span class="period">/month</span>
+        </div>
+      </div>
+      <div class="pricing-features">
+        <ul>
+          <li><i class="fas fa-check"></i> Access to 3 therapy types</li>
+          <li><i class="fas fa-check"></i> Weekly group sessions</li>
+          <li><i class="fas fa-check"></i> Basic resources library</li>
+          <li><i class="fas fa-check"></i> Email support</li>
+          <li class="disabled"><i class="fas fa-times"></i> Personal therapy sessions</li>
+          <li class="disabled"><i class="fas fa-times"></i> Advanced resources</li>
+        </ul>
+      </div>
+      <div class="pricing-action">
+        <a href="#contact" class="pricing-btn">Get Started</a>
+      </div>
+    </div>
+    
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Popular</div>
+      <div class="pricing-header">
+        <h3 class="pricing-title">Premium</h3>
+        <div class="pricing-price">
+          <span class="currency">$</span>
+          <span class="amount">59</span>
+          <span class="period">/month</span>
+        </div>
+      </div>
+      <div class="pricing-features">
+        <ul>
+          <li><i class="fas fa-check"></i> Access to all therapy types</li>
+          <li><i class="fas fa-check"></i> Unlimited group sessions</li>
+          <li><i class="fas fa-check"></i> Full resources library</li>
+          <li><i class="fas fa-check"></i> Priority email & chat support</li>
+          <li><i class="fas fa-check"></i> 2 personal therapy sessions/month</li>
+          <li class="disabled"><i class="fas fa-times"></i> Custom wellness plan</li>
+        </ul>
+      </div>
+      <div class="pricing-action">
+        <a href="#contact" class="pricing-btn">Get Started</a>
+      </div>
+    </div>
+    
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3 class="pricing-title">Ultimate</h3>
+        <div class="pricing-price">
+          <span class="currency">$</span>
+          <span class="amount">99</span>
+          <span class="period">/month</span>
+        </div>
+      </div>
+      <div class="pricing-features">
+        <ul>
+          <li><i class="fas fa-check"></i> Access to all therapy types</li>
+          <li><i class="fas fa-check"></i> Unlimited group sessions</li>
+          <li><i class="fas fa-check"></i> Premium resources library</li>
+          <li><i class="fas fa-check"></i> 24/7 priority support</li>
+          <li><i class="fas fa-check"></i> 5 personal therapy sessions/month</li>
+          <li><i class="fas fa-check"></i> Custom wellness plan</li>
+        </ul>
+      </div>
+      <div class="pricing-action">
+        <a href="#contact" class="pricing-btn">Get Started</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="pricing-toggle">
+    <span class="toggle-label active">Monthly</span>
+    <label class="switch">
+      <input type="checkbox" id="billing-toggle">
+      <span class="slider round"></span>
+    </label>
+    <span class="toggle-label">Annual <span class="discount-badge">Save 20%</span></span>
+  </div>
+  
+  <div class="pricing-cta">
+    <p>Need a custom solution for your organization?</p>
+    <a href="#contact" class="custom-plan-btn">Contact us for custom plans</a>
+  </div>
+</section>
+
+    <section id="contact" class="contact-section">
+      <div class="section-header">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">Have questions? We're here to help you find your path to relaxation</p>
+      </div>
+      <div class="contact-container">
+        <form class="contact-form">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" required>
+              <option value="" disabled selected>Select a subject</option>
+              <option value="general">General Inquiry</option>
+              <option value="services">Services Information</option>
+              <option value="appointment">Book an Appointment</option>
+              <option value="feedback">Feedback</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="How can we help you?" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+        <div class="contact-info">
+          <div class="info-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h3>Our Location</h3>
+              <p>123 Serenity Lane, Peaceful City</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-phone-alt"></i>
+            <div>
+              <h3>Phone Number</h3>
+              <p>+1 (555) 123-4567</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <h3>Email Address</h3>
+              <p>hello@takeitease.com</p>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3 class="footer-title">TakeItEase</h3>
+        <p class="footer-text">Helping you find peace and balance in a hectic world through therapeutic approaches that work.</p>
+      </div>
+      <div class="footer-column">
+        <h3 class="footer-title">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3 class="footer-title">Services</h3>
+        <ul class="footer-links">
+          <li><a href="#services">Audio Therapy</a></li>
+          <li><a href="#services">Reading Therapy</a></li>
+          <li><a href="#services">Yoga Therapy</a></li>
+          <li><a href="#services">Laughing Therapy</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3 class="footer-title">Newsletter</h3>
+        <p class="footer-text">Subscribe to our newsletter for tips and updates.</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 TakeItEase. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <a href="#home" class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+
+
+  
+  <script src="script.js"></script>
+</body>
+</html>
