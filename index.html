@@ -98,10 +98,77 @@
         <h2 class="section-title">What Our Clients Say</h2>
         <p class="section-subtitle">Real stories from people who have found peace with our therapies</p>
       </div>
-      <div class="testimonial-slider-container">
-        <div class="testimonial-slider" id="testimonial-slider">
-          <!-- Testimonials will be dynamically inserted here -->
-        </div>
+     <!-- Replace the existing testimonials section with this static HTML version -->
+<section id="testimonials" class="testimonials-section">
+  <div class="section-header">
+    <h2 class="section-title">What Our Clients Say</h2>
+    <p class="section-subtitle">Real stories from people who have found peace with our therapies</p>
+  </div>
+  <div class="testimonial-slider-container">
+    <div class="testimonial-slider static-testimonials">
+      <!-- Static Testimonial 1 -->
+      <div class="testimonial-card">
+        <img src="https://placehold.co/200x200" alt="Sarah Johnson" class="testimonial-avatar">
+        <p class="testimonial-quote">"TakeItEase has completely transformed my approach to stress management. The audio therapy sessions are my daily ritual now!"</p>
+        <h3 class="testimonial-author">Sarah Johnson</h3>
+        <p class="testimonial-role">Marketing Executive</p>
+      </div>
+      
+      <!-- Static Testimonial 2 -->
+      <div class="testimonial-card">
+        <img src="https://placehold.co/200x200" alt="Michael Chen" class="testimonial-avatar">
+        <p class="testimonial-quote">"After trying the yoga therapy program, I've noticed significant improvements in both my physical and mental wellbeing."</p>
+        <h3 class="testimonial-author">Michael Chen</h3>
+        <p class="testimonial-role">Software Developer</p>
+      </div>
+      
+      <!-- Static Testimonial 3 -->
+      <div class="testimonial-card">
+        <img src="https://placehold.co/200x200" alt="Emma Rodriguez" class="testimonial-avatar">
+        <p class="testimonial-quote">"The reading therapy recommendations were perfectly tailored to my needs. I feel more centered and focused than ever before."</p>
+        <h3 class="testimonial-author">Emma Rodriguez</h3>
+        <p class="testimonial-role">School Teacher</p>
+      </div>
+      
+      <!-- Static Testimonial 4 -->
+      <div class="testimonial-card">
+        <img src="https://placehold.co/200x200" alt="David Wilson" class="testimonial-avatar">
+        <p class="testimonial-quote">"Laughing therapy sessions have brought joy back into my life during a very difficult time. I'm forever grateful."</p>
+        <h3 class="testimonial-author">David Wilson</h3>
+        <p class="testimonial-role">Retired Accountant</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Add this CSS to your stylesheet to properly display static testimonials -->
+<style>
+.static-testimonials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+}
+
+.static-testimonials .testimonial-card {
+  flex: 1 1 280px;
+  max-width: 340px;
+  transform: none !important;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+/* Hide the slider controls since we don't need them anymore */
+.testimonials-section .slider-controls {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .static-testimonials .testimonial-card {
+    flex: 1 1 100%;
+  }
+}
+</style>
         <div class="slider-controls">
           <button id="prev-testimonial" class="slider-btn" aria-label="Previous testimonial">
             <i class="fas fa-chevron-left"></i>
@@ -127,6 +194,102 @@
         </div>
       </div>
     </section>
+    <!-- Add this section right above the contact section -->
+<section id="pricing" class="pricing-section">
+  <div class="section-header">
+    <h2 class="section-title">Our Pricing Plans</h2>
+    <p class="section-subtitle">Choose the perfect plan to support your wellness journey</p>
+  </div>
+  
+  <div class="pricing-container">
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3 class="pricing-title">Basic</h3>
+        <div class="pricing-price">
+          <span class="currency">$</span>
+          <span class="amount">29</span>
+          <span class="period">/month</span>
+        </div>
+      </div>
+      <div class="pricing-features">
+        <ul>
+          <li><i class="fas fa-check"></i> Access to 3 therapy types</li>
+          <li><i class="fas fa-check"></i> Weekly group sessions</li>
+          <li><i class="fas fa-check"></i> Basic resources library</li>
+          <li><i class="fas fa-check"></i> Email support</li>
+          <li class="disabled"><i class="fas fa-times"></i> Personal therapy sessions</li>
+          <li class="disabled"><i class="fas fa-times"></i> Advanced resources</li>
+        </ul>
+      </div>
+      <div class="pricing-action">
+        <a href="#contact" class="pricing-btn">Get Started</a>
+      </div>
+    </div>
+    
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Popular</div>
+      <div class="pricing-header">
+        <h3 class="pricing-title">Premium</h3>
+        <div class="pricing-price">
+          <span class="currency">$</span>
+          <span class="amount">59</span>
+          <span class="period">/month</span>
+        </div>
+      </div>
+      <div class="pricing-features">
+        <ul>
+          <li><i class="fas fa-check"></i> Access to all therapy types</li>
+          <li><i class="fas fa-check"></i> Unlimited group sessions</li>
+          <li><i class="fas fa-check"></i> Full resources library</li>
+          <li><i class="fas fa-check"></i> Priority email & chat support</li>
+          <li><i class="fas fa-check"></i> 2 personal therapy sessions/month</li>
+          <li class="disabled"><i class="fas fa-times"></i> Custom wellness plan</li>
+        </ul>
+      </div>
+      <div class="pricing-action">
+        <a href="#contact" class="pricing-btn">Get Started</a>
+      </div>
+    </div>
+    
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3 class="pricing-title">Ultimate</h3>
+        <div class="pricing-price">
+          <span class="currency">$</span>
+          <span class="amount">99</span>
+          <span class="period">/month</span>
+        </div>
+      </div>
+      <div class="pricing-features">
+        <ul>
+          <li><i class="fas fa-check"></i> Access to all therapy types</li>
+          <li><i class="fas fa-check"></i> Unlimited group sessions</li>
+          <li><i class="fas fa-check"></i> Premium resources library</li>
+          <li><i class="fas fa-check"></i> 24/7 priority support</li>
+          <li><i class="fas fa-check"></i> 5 personal therapy sessions/month</li>
+          <li><i class="fas fa-check"></i> Custom wellness plan</li>
+        </ul>
+      </div>
+      <div class="pricing-action">
+        <a href="#contact" class="pricing-btn">Get Started</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="pricing-toggle">
+    <span class="toggle-label active">Monthly</span>
+    <label class="switch">
+      <input type="checkbox" id="billing-toggle">
+      <span class="slider round"></span>
+    </label>
+    <span class="toggle-label">Annual <span class="discount-badge">Save 20%</span></span>
+  </div>
+  
+  <div class="pricing-cta">
+    <p>Need a custom solution for your organization?</p>
+    <a href="#contact" class="custom-plan-btn">Contact us for custom plans</a>
+  </div>
+</section>
 
     <section id="contact" class="contact-section">
       <div class="section-header">
