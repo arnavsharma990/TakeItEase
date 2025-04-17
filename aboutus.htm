@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Our Team</title>
+    <!-- Added Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+        :root {
+            --color-green-100: #d1fae5;
+            --color-green-200: #a7f3d0;
+            --color-green-300: #6ee7b7;
+            --color-green-400: #34d399;
+            --color-green-500: #10b981;
+            --color-green-600: #059669;
+            --color-green-700: #047857;
+            --color-green-800: #065f46;
+            --color-green-900: #064e3b;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            padding-top: 80px; /* Space for fixed navbar */
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.sticky {
+            padding: 12px 0;
+            box-shadow: 0 5px 15px rgba(6, 95, 70, 0.15);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-green-800);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: var(--color-green-500);
+            margin-right: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover::before {
+            transform: rotate(45deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #444;
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-green-500);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-green-600);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--color-green-800);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 250px;
+                height: 100vh;
+                background-color: white;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: all 0.4s ease;
+                z-index: 999;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+                padding: 50px 0;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                z-index: 1000;
+            }
+        }
+
+        /* Your existing styles below */
+        header {
+            background: linear-gradient(135deg, var(--color-green-600), var(--color-green-800));
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .team-member {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .member-image {
+            height: 280px;
+            width: 100%;
+            background-color: var(--color-green-300);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-info {
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 4px solid var(--color-green-500);
+        }
+
+        .member-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-green-800);
+        }
+
+        .member-role {
+            color: var(--color-green-600);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .member-bio {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .social-links a {
+            color: var(--color-green-600);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: var(--color-green-800);
+        }
+
+        .about-section {
+            background-color: white;
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .section-title {
+            color: var(--color-green-700);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--color-green-500);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-green-600);
+            margin-bottom: 1.5rem;
+        }
+
+        footer {
+            background-color: var(--color-green-900);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .team-container {
+                gap: 1.5rem;
+            }
+            
+            .team-member {
+                width: calc(50% - 1rem);
+                min-width: 250px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .team-member {
+                width: 100%;
+            }
+        }
+
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background-color: var(--color-green-100);
+            color: var(--color-green-800);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: var(--color-green-200);
+        }
+
+        .filter-btn.active {
+            background-color: var(--color-green-500);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">TakeIt Ease</a>
+            <div class="nav-links" id="navLinks">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#team" class="nav-link">Team</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1>About Our Team</h1>
+            <p class="subtitle">Meet the talented individuals behind our success</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="filter-controls">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="leadership">Leadership</button>
+            <button class="filter-btn" data-filter="development">Development</button>
+            <button class="filter-btn" data-filter="design">Design</button>
+            <button class="filter-btn" data-filter="marketing">Marketing</button>
+        </div>
+
+        <div class="team-container" id="teamContainer">
+        </div>
+    </div>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Our Mission</h2>
+                    <p class="section-subtitle">Empowering businesses through innovative solutions</p>
+                    <p>At our company, we believe in making a positive impact by creating products that solve real-world problems. With a focus on sustainability and innovation, our team works tirelessly to deliver solutions that exceed expectations.</p>
+                    <p>Founded in 2019, we've grown from a small startup to a thriving company with clients worldwide. Our success is built on our commitment to quality, our passion for excellence, and the diverse talents of our amazing team members.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TakeIt Ease. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = this.getAttribute('href');
+                
+                if (target === '#') return;
+                
+                e.preventDefault();
+                
+                const targetElement = document.querySelector(target);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        const teamMembers = [
+            {
+                name: "Arnav Sharma",
+                bio: "UI",
+                image: "arnav.jpg",
+                category: "leadership"
+            },
+            {
+                name: "Kushagra Harit",
+                bio: "Front-End",
+                image: "KushagraHarit-cell.jpg",
+                category: "development"
+            },
+            {
+                name: "Ujjwal Nimotra",
+                bio: "Designer",
+                image: "ujjwal.jpg",
+                category: "design"
+            },
+            {
+                name: "Abhishek Mishra",
+                bio: "Researcher",
+                image: "Abhishek.jpg",
+                category: "marketing"
+            }
+        ];
+
+        function createTeamMemberElements() {
+            const teamContainer = document.getElementById('teamContainer');
+            teamContainer.innerHTML = '';
+
+            teamMembers.forEach(member => {
+                const memberElement = document.createElement('div');
+                memberElement.className = `team-member ${member.category}`;
+                
+                memberElement.innerHTML = `
+                    <div class="member-image">
+                        <img src="${member.image}" alt="${member.name}">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">${member.name}</h3>
+                        <p class="member-bio">${member.bio}</p>
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                                LinkedIn
+                            </a>
+                            <a href="#" aria-label="Twitter">
+                                <i class="fab fa-twitter"></i>
+                                Twitter
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                teamContainer.appendChild(memberElement);
+            });
+        }
+
+        function setupFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const filterValue = button.getAttribute('data-filter');
+                    filterTeamMembers(filterValue);
+                });
+            });
+        }
+
+        function filterTeamMembers(filter) {
+            const teamMembers = document.querySelectorAll('.team-member');
+            
+            teamMembers.forEach(member => {
+                if (filter === 'all' || member.classList.contains(filter)) {
+                    member.style.display = 'block';
+                } else {
+                    member.style.display = 'none';
+                }
+            });
+        }
+
+    
+        function addScrollAnimation() {
+            const teamMembers = document.querySelectorAll('.team-member');
+            
+            teamMembers.forEach((member, index) => {
+                setTimeout(() => {
+                    member.style.opacity = '1';
+                    member.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        }
+
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            createTeamMemberElements();
+            setupFilters();
+            
+            
+            const teamMembers = document.querySelectorAll('.team-member');
+            teamMembers.forEach(member => {
+                member.style.opacity = '0';
+                member.style.transform = 'translateY(20px)';
+                member.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            
+            setTimeout(addScrollAnimation, 300);
+        });
+
+    
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 50) {
+                navbar.classList.add('sticky');
+            } else {
+                navbar.classList.remove('sticky');
+            }
+        });
+    </script>
+</body>
+</html>
