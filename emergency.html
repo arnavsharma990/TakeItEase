@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Resources | Take It Ease</title>
+  <style>
+    :root {
+      --primary-color: #a769ff;
+      --dark-bg: #0e1218;
+      --card-bg: #161b26;
+      --red-alert: #f74c4c;
+      --text-light: #f5f5f5;
+      --text-muted: #a0a0a0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+    
+    body {
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      min-height: 100vh;
+    }
+    
+    .navbar {
+      display: flex;
+      align-items: center;
+      padding: 1rem 3rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: rgba(14, 18, 24, 0.95);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    
+    .logo img {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .nav-links {
+      display: flex;
+      margin-left: 3rem;
+      gap: 1.5rem;
+    }
+    
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    
+    .right-nav {
+      margin-left: auto;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: none;
+      font-size: 0.95rem;
+    }
+    
+    .btn-red {
+      background-color: var(--red-alert);
+      color: white;
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--text-light);
+      color: var(--text-light);
+    }
+    
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .alert-box {
+      background-color: rgba(247, 76, 76, 0.1);
+      border: 1px solid var(--red-alert);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+    
+    .alert-box h2 {
+      color: var(--red-alert);
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+    
+    .alert-box p {
+      margin-bottom: 1rem;
+    }
+    
+    .emergency-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .emergency-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--red-alert);
+      color: var(--red-alert);
+      padding: 0.7rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    
+    .emergency-btn:hover {
+      background-color: rgba(247, 76, 76, 0.1);
+    }
+    
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .resource-card {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .resource-title {
+      color: var(--red-alert);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .resource-description {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+    
+    .contact-number {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .website-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+    
+    .website-link:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    .info-box {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .info-box h3 {
+      margin-bottom: 1rem;
+    }
+    
+    .info-box ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .info-box li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .emphasis {
+      font-weight: bold;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      .nav-links {
+        margin-left: 1rem;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      .emergency-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <img src="/api/placeholder/32/32" alt="Take It Ease Logo">
+      Take It Ease
+    </a>
+    <div class="nav-links">
+        <a href="home.html">Home</a>
+      <a href="#">AI Chat</a>
+      <a href="#">Community</a>
+      <a href="#">Consultation</a>
+     
+      <a href="#">Resources</a>
+      <a href="Exercises.html">Wellness Tools</a>
+    </div>
+    <div class="right-nav">
+      <a href="#" class="btn btn-red">Urgent Support</a>
+      <button class="theme-toggle">🌙</button>
+      <a href="#" class="btn btn-outline">Sign In</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="alert-box">
+      <h2>Need immediate help?</h2>
+      <p>If you or someone you know is in immediate danger, please call emergency services immediately.</p>
+      <div class="emergency-buttons">
+        <a href="tel:112" class="emergency-btn">
+          <span>📞</span> Call 112 (Emergency Services)
+        </a>
+        <a href="tel:08046110007" class="emergency-btn">
+          <span>📞</span> Call NIMHANS Helpline
+        </a>
+      </div>
+    </div>
+
+    <div class="resources-grid">
+      <div class="resource-card">
+        <h3 class="resource-title">NIMHANS Mental Health Helpline</h3>
+        <p class="resource-description">24/7 toll-free mental health helpline by National Institute of Mental Health and Neurosciences</p>
+        <div class="contact-number">
+          <span>📞</span> 080-4611 0007
+        </div>
+        <a href="#" class="website-link">
+          <span>🌐</span> Visit Website
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <h3 class="resource-title">iCall Psychosocial Helpline</h3>
+        <p class="resource-description">Free counseling service by TISS (Mon-Sat, 8 AM to 10 PM IST)</p>
+        <div class="contact-number">
+          <span>📞</span> 022-25521111
+        </div>
+        <a href="#" class="website-link">
+          <span>🌐</span> Visit Website
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <h3 class="resource-title">Vandrevala Foundation</h3>
+        <p class="resource-description">24/7 helpline for emotional crisis and distress</p>
+        <div class="contact-number">
+          <span>📞</span> 1860-2662-345
+        </div>
+        <a href="#" class="website-link">
+          <span>🌐</span> Visit Website
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <h3 class="resource-title">AASRA</h3>
+        <p class="resource-description">24/7 helpline for those feeling suicidal or in emotional distress</p>
+        <div class="contact-number">
+          <span>📞</span> 91-9820466726
+        </div>
+        <a href="#" class="website-link">
+          <span>🌐</span> Visit Website
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <h3 class="resource-title">Sneha India</h3>
+        <p class="resource-description">Suicide prevention organization (24/7 helpline)</p>
+        <div class="contact-number">
+          <span>📞</span> 044-24640050
+        </div>
+        <a href="#" class="website-link">
+          <span>🌐</span> Visit Website
+        </a>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h3>Remember</h3>
+      <p>Mental health emergencies are real medical emergencies that require immediate attention. Don't hesitate to reach out for help if you're experiencing:</p>
+      <ul>
+        <li>Thoughts of harming yourself or others</li>
+        <li>Overwhelming feelings of despair or hopelessness</li>
+        <li>Severe anxiety or panic attacks that don't subside</li>
+        <li>Dangerous or concerning behavior due to substance use</li>
+        <li>Any situation where you feel unsafe</li>
+      </ul>
+      <p><span class="emphasis">You are not alone.</span> Help is available 24/7, and recovery is possible.</p>
+    </div>
+  </div>
+
+  <script>
+    // Simple theme toggle functionality
+    const themeToggle = document.querySelector('.theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      if (themeToggle.textContent === '🌙') {
+        themeToggle.textContent = '☀️';
+      } else {
+        themeToggle.textContent = '🌙';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TakeIt Ease - Wellness Tools</title>
+    <style>
+        :root {
+            --primary-color: #8a68e3;
+            --secondary-color: #10121e;
+            --text-color: #e4e6f1;
+            --card-bg: rgba(30, 34, 53, 0.6);
+            --highlight: #8a68e3;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(16, 18, 30, 0.9);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo img {
+            width: 32px;
+            height: 32px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links .active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.25rem;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1.25rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 4rem;
+        }
+        
+        .tool-card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .breathing-icon {
+            background-color: #4a90e2;
+        }
+        
+        .mood-icon {
+            background-color: #8a68e3;
+        }
+        
+        .journal-icon {
+            background-color: #4dbd74;
+        }
+        
+        .tool-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .tool-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .tool-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: rgba(16, 18, 30, 0.8);
+        }
+        
+        .feature-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+        
+        .breathing-dot {
+            background-color: #4a90e2;
+        }
+        
+        .mood-dot {
+            background-color: #8a68e3;
+        }
+        
+        .journal-dot {
+            background-color: #4dbd74;
+        }
+        
+        /* Background Elements */
+        .bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            opacity: 0.2;
+        }
+        
+        .bg-shape {
+            position: absolute;
+            opacity: 0.2;
+        }
+        
+        .shape1 {
+            top: 15%;
+            left: 10%;
+            transform: rotate(15deg);
+        }
+        
+        .shape2 {
+            top: 20%;
+            right: 15%;
+            transform: rotate(-10deg);
+        }
+        
+        .shape3 {
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%) rotate(5deg);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container navbar">
+            <a href="#" class="logo">
+                <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#10121E" stroke="#8a68e3" stroke-width="5"/>
+                    <path d="M50 25C62.1503 25 72 34.8497 72 47C72 59.1503 62.1503 69 50 69C37.8497 69 28 59.1503 28 47C28 34.8497 37.8497 25 50 25Z" fill="#8a68e3" fill-opacity="0.5"/>
+                    <path d="M55 47C55 49.7614 52.7614 52 50 52C47.2386 52 45 49.7614 45 47C45 44.2386 47.2386 42 50 42C52.7614 42 55 44.2386 55 47Z" fill="white"/>
+                </svg>
+                TakeIt Ease
+            </a>
+            <div class="nav-links">
+                <a href="home.html">Home</a>
+                <a href="#">AI Chat</a>
+                <a href="community.html">Community</a>
+                <a href="#">Consultation</a>
+             
+                <a href="#">Resources</a>
+                <a href="Exercises.html" class="active">Wellness Tools</a>
+            </div>
+            <div class="auth-buttons">
+                <button class="btn btn-primary">Urgent Support</button>
+                <button class="theme-toggle">🌙</button>
+                <button class="btn btn-secondary">Sign In</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-elements">
+        <svg class="bg-shape shape1" width="200" height="200" viewBox="0 0 200 200">
+            <path d="M100,10 C150,20 190,70 190,130 C190,170 150,190 100,190 C50,190 10,170 10,130 C10,70 50,20 100,10 Z" fill="#8a68e3"/>
+        </svg>
+        <svg class="bg-shape shape2" width="200" height="200" viewBox="0 0 200 200">
+            <path d="M100,10 C150,20 190,70 190,130 C190,170 150,190 100,190 C50,190 10,170 10,130 C10,70 50,20 100,10 Z" fill="#4a90e2"/>
+        </svg>
+        <svg class="bg-shape shape3" width="200" height="200" viewBox="0 0 200 200">
+            <path d="M100,10 C150,20 190,70 190,130 C190,170 150,190 100,190 C50,190 10,170 10,130 C10,70 50,20 100,10 Z" fill="#4dbd74"/>
+        </svg>
+    </div>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Wellness Tools</h1>
+            <p>Explore our collection of interactive tools designed to support your mental well-being journey.</p>
+        </section>
+
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon breathing-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                            <path d="M12 12h9"/>
+                            <path d="M12 12v9"/>
+                        </svg>
+                    </div>
+                    <div class="tool-title">Breathing Exercises</div>
+                </div>
+                <div class="tool-description">
+                    Practice guided breathing techniques to reduce stress, improve focus, and find inner calm. Includes box breathing, 4-7-8 technique, and deep relaxation exercises.
+                </div>
+                <div class="tool-features">
+                    <div class="feature-item">
+                        <div class="feature-dot breathing-dot"></div>
+                        Box Breathing
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-dot breathing-dot"></div>
+                        Deep Relaxation
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-dot breathing-dot"></div>
+                        Stress Relief
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-dot breathing-dot"></div>
+                        Focus Enhancement
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon mood-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"/>
+                            <path d="M8 9h.01"/>
+                            <path d="M16 9h.01"/>
+                            <path d="M16 14h-4v-3"/>
+                        </svg>
+                    </div>
+                    <div class="tool-title">Mood Tracking</div>
+                </div>
+                <div class="tool-description">
+                    Monitor and understand your emotional patterns with our intuitive mood tracking tool. Gain insights into your mental well-being and identify triggers.
+                </div>
+                <div class="tool-features">
+                    <div class="feature-item">
+                        <div class="feature-dot mood-dot"></div>
+                        Daily Mood Logs
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-dot mood-dot"></div>
+                        Emotion Patterns
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-dot mood-dot"></div>
+                        Trigger Analysis
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-dot mood-dot"></div>
+                        Progress Charts
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon journal-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 14V10H3v4"/>
+                            <path d="M3 6V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1"/>
+                            <path d="M3 18v1a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1"/>
+                        </svg>
+                    </div>
+                    <div class="tool-title">Journaling</div>
+                </div>
+                <div class="tool-description">
+                    Express your thoughts and feelings in a private, secure space. Use guided prompts and reflection exercises to deepen your self-awareness.
+                </div>
+                <div class="tool-features">
+                    <div class="feature-item">
+                        <div class="feature-dot journal-dot"></div>
+                        Guided Prompts
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-dot journal-dot"></div>
+                        Private Entries
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-dot journal-dot"></div>
+                        Reflection Tools
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-dot journal-dot"></div>
+                        Mood Integration
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Simple theme toggle functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        let darkMode = true;
+        
+        themeToggle.addEventListener('click', () => {
+            darkMode = !darkMode;
+            if (darkMode) {
+                document.body.style.backgroundColor = '#10121e';
+                document.body.style.color = '#e4e6f1';
+                themeToggle.innerHTML = '🌙';
+            } else {
+                document.body.style.backgroundColor = '#f5f5f7';
+                document.body.style.color = '#333';
+                themeToggle.innerHTML = '☀️';
+            }
+        });
+        
+        // Add hover effect to tool cards
+        const toolCards = document.querySelectorAll('.tool-card');
+        toolCards.forEach(card => {
+            card.addEventListener('mouseover', () => {
+                card.style.transform = 'translateY(-5px)';
+                card.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+                card.style.transition = 'all 0.3s ease';
+            });
+            
+            card.addEventListener('mouseout', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.2)';
+            });
+        });
+    </script>
+</body>
+</html>

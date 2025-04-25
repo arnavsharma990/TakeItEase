@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Wellness Platform</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+}
+
+body {
+    background-color: #0f1425;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 10%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: rgba(15, 20, 37, 0.95);
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 28px;
+}
+
+.nav-tab {
+    color: #fff;
+    text-decoration: none;
+    font-size: 17px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    padding: 10px 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.nav-tab:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #a278ff;
+    transition: width 0.3s ease;
+}
+
+.nav-tab:hover:after {
+    width: 100%;
+}
+
+.nav-tab.active {
+    opacity: 1;
+}
+
+.nav-tab.active:after {
+    width: 100%;
+}
+
+.notification-icon {
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.notification-icon:hover {
+    transform: scale(1.1);
+}
+
+.main-content {
+    flex: 1;
+    padding: 30px 10%;
+}
+
+/* Community Guidelines Section */
+.community-guidelines {
+    background: linear-gradient(135deg, #232b4a, #1b2038);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.guidelines-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.guidelines-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.guideline-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 22px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.guideline-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.guideline-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #a278ff;
+    margin-bottom: 12px;
+}
+
+.guideline-content {
+    color: #e0e0e0;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Groups page styling */
+.groups-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 30px;
+}
+
+.group-card {
+    background: linear-gradient(145deg, #1e2542, #191f35);
+    border-radius: 16px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.group-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.group-title {
+    color: #a278ff;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.group-description {
+    color: #e0e0e0;
+    margin-bottom: 24px;
+    font-size: 16px;
+    flex-grow: 1;
+    line-height: 1.7;
+}
+
+.group-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.member-count {
+    color: #ccc;
+    font-size: 15px;
+}
+
+.join-button {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 15px;
+}
+
+.join-button:hover {
+    background-color: rgba(162, 120, 255, 0.15);
+    border-color: #a278ff;
+    color: #a278ff;
+}
+
+/* Feed page styling */
+.feed-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.create-post {
+    background: linear-gradient(145deg, #1e2542, #191f35);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 35px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.create-post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a278ff, #7c5adb);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin-right: 15px;
+    box-shadow: 0 4px 10px rgba(162, 120, 255, 0.3);
+}
+
+.post-input {
+    width: 100%;
+    background-color: #252b45;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    color: #fff;
+    font-size: 16px;
+    resize: none;
+    min-height: 120px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-input:focus {
+    outline: none;
+    border-color: #a278ff;
+    box-shadow: 0 0 0 2px rgba(162, 120, 255, 0.25);
+}
+
+.post-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.post-button {
+    background: linear-gradient(135deg, #a278ff, #7c5adb);
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 12px 28px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(162, 120, 255, 0.3);
+}
+
+.post-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(162, 120, 255, 0.4);
+    background: linear-gradient(135deg, #b389ff, #8b66e0);
+}
+
+.post-card {
+    background: linear-gradient(145deg, #1e2542, #191f35);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-3px);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.post-author {
+    font-weight: bold;
+    margin-right: 15px;
+    font-size: 17px;
+}
+
+.post-time {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.post-content {
+    color: #f0f0f0;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.post-interaction {
+    display: flex;
+    gap: 25px;
+    color: #bbb;
+    font-size: 15px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.post-interaction span {
+    cursor: pointer;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.post-interaction span:hover {
+    color: #a278ff;
+}
+
+.footer {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #0a0f1d;
+    font-size: 14px;
+    color: #aaa;
+    margin-top: 50px;
+}
+
+.footer p {
+    margin: 8px 0;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #232b4a, #1b2038);
+    border-radius: 16px;
+    padding: 40px;
+    width: 90%;
+    max-width: 550px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-title {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.modal-text {
+    margin-bottom: 30px;
+    line-height: 1.7;
+    color: #e0e0e0;
+    font-size: 16px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.modal-button {
+    padding: 12px 28px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 16px;
+    border: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.subscribe-button {
+    background: linear-gradient(135deg, #a278ff, #7c5adb);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(162, 120, 255, 0.3);
+}
+
+.subscribe-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(162, 120, 255, 0.4);
+    background: linear-gradient(135deg, #b389ff, #8b66e0);
+}
+
+.cancel-button {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.cancel-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.hidden {
+    display: none;
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="nav-tabs">
+            <span class="nav-tab" id="home-tab">Home</span>
+            <span class="nav-tab active" id="feed-tab">Community Feed</span>
+            <span class="nav-tab" id="groups-tab">Support Groups</span>
+        </div>
+        <div class="notification-icon">🔔</div>
+    </div>
+    
+    <div class="main-content">
+        <div class="community-guidelines">
+            <h2 class="guidelines-title">Community Guidelines</h2>
+            <div class="guidelines-container">
+                <div class="guideline-card">
+                    <h3 class="guideline-title">Safe Space</h3>
+                    <p class="guideline-content">This is a judgment-free zone. Be kind and supportive to others.</p>
+                </div>
+                <div class="guideline-card">
+                    <h3 class="guideline-title">Respect Privacy</h3>
+                    <p class="guideline-content">What's shared here stays here. Don't share others' personal information.</p>
+                </div>
+                <div class="guideline-card">
+                    <h3 class="guideline-title">Share Wisely</h3>
+                    <p class="guideline-content">Share your experiences but avoid giving medical advice.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Community Feed Section -->
+        <div class="feed-container" id="feed-content">
+            <div class="create-post">
+                <div class="create-post-header">
+                    <div class="user-avatar">U</div>
+                    <span>Share what's on your mind...</span>
+                </div>
+                <textarea class="post-input" placeholder="Write your thoughts here..."></textarea>
+                <div class="post-actions">
+                    <button class="post-button" id="create-post-btn">Post</button>
+                </div>
+            </div>
+            
+            <!-- Existing posts -->
+            <div class="post-card">
+                <div class="post-header">
+                    <div class="user-avatar">S</div>
+                    <div>
+                        <div class="post-author">Sarah M.</div>
+                        <div class="post-time">2 hours ago</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    I tried the 5-minute meditation exercise from the Mindfulness group today, and it really helped me calm down during a stressful meeting. Does anyone else have quick meditation techniques they use during work hours?
+                </div>
+                <div class="post-interaction">
+                    <span>❤️ 24 likes</span>
+                    <span>💬 8 comments</span>
+                    <span>↗️ Share</span>
+                </div>
+            </div>
+            
+            <div class="post-card">
+                <div class="post-header">
+                    <div class="user-avatar">J</div>
+                    <div>
+                        <div class="post-author">James T.</div>
+                        <div class="post-time">Yesterday</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    Just wanted to say thank you to everyone in the Anxiety Support group. I've been part of this community for 3 weeks now, and the strategies I've learned have made a real difference. It's comforting to know I'm not alone in this journey.
+                </div>
+                <div class="post-interaction">
+                    <span>❤️ 42 likes</span>
+                    <span>💬 15 comments</span>
+                    <span>↗️ Share</span>
+                </div>
+            </div>
+            
+            <div class="post-card">
+                <div class="post-header">
+                    <div class="user-avatar">L</div>
+                    <div>
+                        <div class="post-author">Lisa K.</div>
+                        <div class="post-time">2 days ago</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    Article recommendation: "The Science of Stress and How to Manage It" in Psychology Today. It explains how chronic stress affects the brain and offers practical solutions. Here's what worked for me: daily walks, limiting news intake, and journaling before bed. Anyone else tried these methods?
+                </div>
+                <div class="post-interaction">
+                    <span>❤️ 36 likes</span>
+                    <span>💬 12 comments</span>
+                    <span>↗️ Share</span>
+                </div>
+            </div>
+            
+            <div class="post-card">
+                <div class="post-header">
+                    <div class="user-avatar">R</div>
+                    <div>
+                        <div class="post-author">Robert N.</div>
+                        <div class="post-time">3 days ago</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    Quick win for my fellow positive growth enthusiasts: I've been writing down 3 things I'm grateful for each morning. It's a small habit, but it really shifts my perspective for the entire day. What small habits have made the biggest impact on your mindset?
+                </div>
+                <div class="post-interaction">
+                    <span>❤️ 29 likes</span>
+                    <span>💬 14 comments</span>
+                    <span>↗️ Share</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Support Groups Section -->
+        <div class="groups-container hidden" id="groups-content">
+            <div class="group-card">
+                <h2 class="group-title">Anxiety Support</h2>
+                <p class="group-description">A safe space to discuss anxiety and share coping strategies.</p>
+                <div class="group-footer">
+                    <span class="member-count">234 members</span>
+                    <button class="join-button">Join Group</button>
+                </div>
+            </div>
+            
+            <div class="group-card">
+                <h2 class="group-title">Mindfulness Practice</h2>
+                <p class="group-description">Daily mindfulness exercises and meditation discussions.</p>
+                <div class="group-footer">
+                    <span class="member-count">156 members</span>
+                    <button class="join-button">Join Group</button>
+                </div>
+            </div>
+            
+            <div class="group-card">
+                <h2 class="group-title">Stress Management</h2>
+                <p class="group-description">Tips and discussions about managing daily stress.</p>
+                <div class="group-footer">
+                    <span class="member-count">189 members</span>
+                    <button class="join-button">Join Group</button>
+                </div>
+            </div>
+            
+            <div class="group-card">
+                <h2 class="group-title">Positive Growth</h2>
+                <p class="group-description">Focus on personal development and positive thinking.</p>
+                <div class="group-footer">
+                    <span class="member-count">145 members</span>
+                    <button class="join-button">Join Group</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Sukoon is an AI assistant for mental wellness support. Not a replacement for professional help.</p>
+        <p>If you're experiencing a crisis, please contact a mental health professional or crisis hotline.</p>
+    </div>
+    
+    <!-- Subscription Modal -->
+    <div class="modal" id="subscriptionModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Join Group</h3>
+            <p class="modal-text">You need to subscribe first to join this support group and access all its features.</p>
+            <div class="modal-buttons">
+                <button class="modal-button subscribe-button">Subscribe Now</button>
+                <button class="modal-button cancel-button" id="closeModal">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Tab switching functionality
+        const homeTab = document.getElementById('home-tab');
+        const feedTab = document.getElementById('feed-tab');
+        const groupsTab = document.getElementById('groups-tab');
+        const feedContent = document.getElementById('feed-content');
+        const groupsContent = document.getElementById('groups-content');
+        
+        // Home tab redirects to home.html
+        homeTab.addEventListener('click', () => {
+            window.location.href = 'home.html';
+        });
+        
+        feedTab.addEventListener('click', () => {
+            feedTab.classList.add('active');
+            groupsTab.classList.remove('active');
+            homeTab.classList.remove('active');
+            feedContent.classList.remove('hidden');
+            groupsContent.classList.add('hidden');
+        });
+        
+        groupsTab.addEventListener('click', () => {
+            groupsTab.classList.add('active');
+            feedTab.classList.remove('active');
+            homeTab.classList.remove('active');
+            groupsContent.classList.remove('hidden');
+            feedContent.classList.add('hidden');
+        });
+        
+        // Join Group subscription modal
+        const joinButtons = document.querySelectorAll('.join-button');
+        const subscriptionModal = document.getElementById('subscriptionModal');
+        const closeModalButton = document.getElementById('closeModal');
+        
+        joinButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                subscriptionModal.style.display = 'flex';
+            });
+        });
+        
+        closeModalButton.addEventListener('click', () => {
+            subscriptionModal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', (event) => {
+            if (event.target === subscriptionModal) {
+                subscriptionModal.style.display = 'none';
+            }
+        });
+        
+        // Create new post functionality
+        const createPostBtn = document.getElementById('create-post-btn');
+        const postInput = document.querySelector('.post-input');
+        
+        createPostBtn.addEventListener('click', () => {
+            const postContent = postInput.value.trim();
+            
+            if (postContent) {
+                // Create new post elements
+                const newPost = document.createElement('div');
+                newPost.className = 'post-card';
+                
+                const currentDate = new Date();
+                const timeString = 'Just now';
+                
+                newPost.innerHTML = `
+                    <div class="post-header">
+                        <div class="user-avatar">U</div>
+                        <div>
+                            <div class="post-author">You</div>
+                            <div class="post-time">${timeString}</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        ${postContent}
+                    </div>
+                    <div class="post-interaction">
+                        <span>❤️ 0 likes</span>
+                        <span>💬 0 comments</span>
+                        <span>↗️ Share</span>
+                    </div>
+                `;
+                
+                // Add new post at the beginning of the feed
+                feedContent.insertBefore(newPost, document.querySelector('.create-post').nextSibling);
+                
+                // Clear the input
+                postInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
