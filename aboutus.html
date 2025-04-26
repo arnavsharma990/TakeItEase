@@ -1,582 +1,932 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Our Team</title>
-    <!-- Added Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
-        :root {
-            --color-green-100: #d1fae5;
-            --color-green-200: #a7f3d0;
-            --color-green-300: #6ee7b7;
-            --color-green-400: #34d399;
-            --color-green-500: #10b981;
-            --color-green-600: #059669;
-            --color-green-700: #047857;
-            --color-green-800: #065f46;
-            --color-green-900: #064e3b;
-            --transition: all 0.3s ease;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>About Us - TakeItEase</title>
+  <style>
+    :root {
+      --primary-color: #5e8b7e;
+      --secondary-color: #7fbda0;
+      --accent-color: #c5e8d5;
+      --dark-color: #2c3e50;
+      --light-color: #f8f9fa;
+      --text-color: #2c3e50;
+      --glow-color: rgba(94, 139, 126, 0.4);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      overflow-x: hidden;
+      font-family: "Poppins", sans-serif;
+      background-color: var(--light-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      padding: 20px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+      transition: background 0.3s ease;
+      background-color: rgba(248, 249, 250, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+    }        
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+    
+    .logo h1 {
+      color: var(--dark-color);
+      font-size: 2rem;
+      text-transform: none;
+      font-family: "Lora", serif;
+      letter-spacing: 1px;
+      margin: 0;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
-        }
+    .logo .oneword {
+      color: var(--primary-color);
+      text-shadow: 0 0 10px var(--glow-color);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
 
-        body {
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-            font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
-            padding-top: 80px; /* Space for fixed navbar */
-        }
+    nav a {
+      text-decoration: none;
+      color: var(--dark-color);
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease;
+      position: relative;
+    }
 
-        /* Navbar styles */
-        .navbar {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
+    nav a:hover {
+      color: var(--primary-color);
+    }
 
-        .navbar.sticky {
-            padding: 12px 0;
-            box-shadow: 0 5px 15px rgba(6, 95, 70, 0.15);
-        }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-green-800);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: var(--light-color);
+    }
 
-        .logo::before {
-            content: '';
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background-color: var(--color-green-500);
-            margin-right: 8px;
-            transition: all 0.3s ease;
-        }
+    .btn-primary:hover {
+      background-color: #4a7268;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(94, 139, 126, 0.4);
+    }
 
-        .logo:hover::before {
-            transform: rotate(45deg);
-        }
+    .btn-outline {
+      background-color: transparent;
+      color: var(--dark-color);
+      border: 2px solid var(--primary-color);
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
+    .btn-outline:hover {
+      background-color: var(--primary-color);
+      color: var(--light-color);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(94, 139, 126, 0.4);
+    }
 
-        .nav-link {
-            color: #444;
-            text-decoration: none;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.85rem;
-            position: relative;
-            padding: 5px 0;
-            transition: all 0.3s ease;
-        }
+    .user-icon {
+      font-size: 1.3rem;
+      color: var(--dark-color);
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--color-green-500);
-            transition: all 0.3s ease;
-        }
+    .user-icon:hover {
+      color: var(--primary-color);
+    }
 
-        .nav-link:hover {
-            color: var(--color-green-600);
-        }
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    
+    main {
+      padding-top: 100px;
+    }
+    
+    .hero {
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+    
+    .hero h2 {
+      font-size: 3.5rem;
+      font-family: "Lora", serif;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      color: var(--dark-color);
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
+    .hero h3 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 40px;
+      font-family: "Montserrat", sans-serif;
+      letter-spacing: 1px;
+    }
 
-        .menu-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 1.3rem;
-            color: var(--color-green-800);
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 250px;
-                height: 100vh;
-                background-color: white;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 30px;
-                transition: all 0.4s ease;
-                z-index: 999;
-                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
-                padding: 50px 0;
-            }
-            
-            .nav-links.active {
-                right: 0;
-            }
-            
-            .menu-toggle {
-                display: block;
-                z-index: 1000;
-            }
-        }
-
-        /* Your existing styles below */
-        header {
-            background: linear-gradient(135deg, var(--color-green-600), var(--color-green-800));
-            color: white;
-            text-align: center;
-            padding: 3rem 0;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 1.5rem;
-        }
-
-        .team-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .team-member {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            width: 250px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .team-member:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .member-image {
-            height: 280px;
-            width: 100%;
-            background-color: var(--color-green-300);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .member-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .member-info {
-            padding: 1.5rem;
-            text-align: center;
-            border-top: 4px solid var(--color-green-500);
-        }
-
-        .member-name {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--color-green-800);
-        }
-
-        .member-role {
-            color: var(--color-green-600);
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .member-bio {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 1rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            text-decoration: none;
-        }
-
-        .social-links a {
-            color: var(--color-green-600);
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-            text-decoration: none;
-        }
-
-        .social-links a:hover {
-            color: var(--color-green-800);
-        }
-
-        .about-section {
-            background-color: white;
-            padding: 3rem 0;
-            margin-bottom: 3rem;
-        }
-
-        .about-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .section-title {
-            color: var(--color-green-700);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background-color: var(--color-green-500);
-        }
-
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--color-green-600);
-            margin-bottom: 1.5rem;
-        }
-
-        footer {
-            background-color: var(--color-green-900);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        @media (max-width: 768px) {
-            .team-container {
-                gap: 1.5rem;
-            }
-            
-            .team-member {
-                width: calc(50% - 1rem);
-                min-width: 250px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .team-member {
-                width: 100%;
-            }
-        }
-
-        .filter-controls {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .filter-btn {
-            background-color: var(--color-green-100);
-            color: var(--color-green-800);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover {
-            background-color: var(--color-green-200);
-        }
-
-        .filter-btn.active {
-            background-color: var(--color-green-500);
-            color: white;
-        }
-    </style>
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(248, 249, 250, 0.8), rgba(248, 249, 250, 0.9)), url('/api/placeholder/1200/500') center/cover no-repeat;
+      z-index: -1;
+    }
+    
+    .hero-content {
+      text-align: center;
+      max-width: 800px;
+      z-index: 1;
+      padding: 0 20px;
+    }
+    
+    .hero-title {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      font-family: "Lora", serif;
+    }
+    
+    .hero-subtitle {
+      font-size: 20px;
+      color: var(--dark-color);
+      margin-bottom: 30px;
+    }
+    
+    .section {
+      padding: 60px 0;
+    }
+    
+    .section-title {
+      font-size: 36px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: var(--primary-color);
+      font-family: "Lora", serif;
+    }
+    
+    .section-description {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      color: var(--text-color);
+    }
+    
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .card {
+      background-color: var(--light-color);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-img {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+    
+    .card-content {
+      padding: 20px;
+    }
+    
+    .card-title {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+      font-family: "Montserrat", sans-serif;
+    }
+    
+    .team {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    
+    .team-member {
+      background-color: var(--light-color);
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s;
+      padding-bottom: 20px;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-5px);
+    }
+    
+    .member-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 30px auto 15px;
+      border: 3px solid var(--secondary-color);
+      object-fit: cover;
+    }
+    
+    .member-name {
+      font-size: 20px;
+      margin-bottom: 5px;
+      color: var(--primary-color);
+      font-family: "Montserrat", sans-serif;
+    }
+    
+    .member-role {
+      color: var(--dark-color);
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: rgba(94, 139, 126, 0.1);
+      color: var(--primary-color);
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary-color);
+      color: var(--light-color);
+      transform: translateY(-3px);
+    }
+    
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .stat-card {
+      background-color: var(--accent-color);
+      border-radius: 10px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .stat-number {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+      font-family: "Montserrat", sans-serif;
+    }
+    
+    .stat-text {
+      font-size: 18px;
+      color: var(--dark-color);
+    }
+    
+    .testimonials {
+      position: relative;
+      padding: 60px 0;
+    }
+    
+    .testimonial-container {
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .testimonial {
+      background-color: var(--light-color);
+      border-radius: 10px;
+      padding: 30px;
+      margin: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      border-left: 4px solid var(--primary-color);
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 20px;
+      color: var(--text-color);
+    }
+    
+    .testimonial-author {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+    
+    .testimonial-role {
+      color: var(--dark-color);
+      font-size: 14px;
+    }
+    
+    .faq {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
+      margin-bottom: 20px;
+      background-color: var(--light-color);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .faq-question {
+      padding: 20px;
+      background-color: rgba(94, 139, 126, 0.1);
+      color: var(--dark-color);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    
+    .faq-answer.active {
+      padding: 20px;
+      max-height: 200px;
+    }
+    
+    .cta {
+      text-align: center;
+      background: linear-gradient(rgba(248, 249, 250, 0.9), rgba(248, 249, 250, 0.9)), url('/api/placeholder/1200/300') center/cover no-repeat;
+      padding: 80px 0;
+      border-radius: 10px;
+      margin-top: 60px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .cta-title {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      font-family: "Lora", serif;
+    }
+    
+    .cta-text {
+      margin-bottom: 30px;
+      color: var(--dark-color);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    footer {
+      background-color: var(--dark-color);
+      color: var(--light-color);
+      padding: 60px 0 30px;
+      margin-top: 60px;
+    }
+    
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-column h3 {
+      color: var(--secondary-color);
+      margin-bottom: 20px;
+      font-size: 18px;
+      font-family: "Montserrat", sans-serif;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: var(--light-color);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: var(--secondary-color);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--light-color);
+    }
+    
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--dark-color);
+      font-size: 20px;
+      cursor: pointer;
+      margin-left: 20px;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animated {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+      }
+      
+      .nav-links {
+        margin-top: 20px;
+      }
+      
+      .nav-links li {
+        margin: 0 10px;
+      }
+      
+      .hero-title {
+        font-size: 36px;
+      }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      nav {
+        display: none;
+        width: 100%;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        background-color: var(--light-color);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      nav.active {
+        display: block;
+      }
+      
+      nav ul {
+        flex-direction: column;
+        padding: 20px 0;
+      }
+      
+      nav ul li {
+        margin: 10px 0;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">TakeIt Ease</a>
-            <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#team" class="nav-link">Team</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
-            <div class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </nav>
-
-    <header>
+    <header id="header">
         <div class="container">
-            <h1>About Our Team</h1>
-            <p class="subtitle">Meet the talented individuals behind our success</p>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="filter-controls">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="leadership">Leadership</button>
-            <button class="filter-btn" data-filter="development">Development</button>
-            <button class="filter-btn" data-filter="design">Design</button>
-            <button class="filter-btn" data-filter="marketing">Marketing</button>
-        </div>
-
-        <div class="team-container" id="teamContainer">
-        </div>
-    </div>
-
-    <section class="about-section">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">Our Mission</h2>
-                    <p class="section-subtitle">Empowering businesses through innovative solutions</p>
-                    <p>At our company, we believe in making a positive impact by creating products that solve real-world problems. With a focus on sustainability and innovation, our team works tirelessly to deliver solutions that exceed expectations.</p>
-                    <p>Founded in 2019, we've grown from a small startup to a thriving company with clients worldwide. Our success is built on our commitment to quality, our passion for excellence, and the diverse talents of our amazing team members.</p>
+            <div class="header-content">
+                <div class="logo">
+                    <h1>TakeIt<span class="oneword"> Ease</span></h1>
+                </div>
+                
+                <div class="menu-toggle" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                
+                <nav>
+                    <ul id="nav-menu">
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="Exercises.html">Our Therapies</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="user-actions">
+                    <button class="btn btn-outline" id="login-btn">Client Portal</button>
                 </div>
             </div>
         </div>
+    </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content animated">
+        <h1 class="hero-title">Welcome to TakeIt Ease</h1>
+        <p class="hero-subtitle">Your Journey to Mental Wellness Begins Here</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary">Book a Consultation</button>
+          <button class="btn btn-outline">Learn More</button>
+        </div>
+      </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 TakeIt Ease. All rights reserved.</p>
+    <section class="section container animated">
+      <h2 class="section-title">Our Story</h2>
+      <p class="section-description">Founded in 2020 by a team of dedicated mental health professionals, TakeItEase was created with a simple but powerful mission: to make quality mental health care accessible to everyone.</p>
+      
+      <div class="cards">
+        
+        
+        <div class="card">
+          <img src="Screenshot 2025-04-24 162228.png" alt="Our Mission" class="card-img">
+          <div class="card-content">
+            <h3 class="card-title">Our Mission</h3>
+            <p>We're committed to removing barriers to mental healthcare and providing personalized, evidence-based treatment in a compassionate and supportive environment.</p>
+          </div>
         </div>
-    </footer>
-
-    <script>
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
         
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        <div class="card">
+          <img src="Screenshot 2025-04-24 162306.png" alt="Our Vision" class="card-img">
+          <div class="card-content">
+            <h3 class="card-title">Our Vision</h3>
+            <p>At TakeIt Ease, we believe in the power of relaxation and mindfulness to transform lives. Our mission is to provide accessible therapeutic solutions that help you disconnect from stress and reconnect with your inner peace.
+
+Founded in 2025, our team of wellness experts has developed a range of therapeutic approaches that cater to different needs and preferences..</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container animated">
+      <h2 class="section-title">Our Approach to Mental Wellness</h2>
+      <p class="section-description">At TakeItEase, we believe in holistic, personalized care that addresses the unique needs of each individual.</p>
+      
+      <div class="cards">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="card-title">Individual Therapy</h3>
+            <p>One-on-one sessions with our licensed therapists using evidence-based approaches like CBT, DBT, and mindfulness to address depression, anxiety, trauma, and more.</p>
+          </div>
+        </div>
         
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
+        <div class="card">
+          <div class="card-content">
+            <h3 class="card-title">Group Support</h3>
+            <p>Therapeutic group sessions provide connection, shared experiences, and mutual support under the guidance of our experienced facilitators.</p>
+          </div>
+        </div>
         
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const target = this.getAttribute('href');
-                
-                if (target === '#') return;
-                
-                e.preventDefault();
-                
-                const targetElement = document.querySelector(target);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+        <div class="card">
+          <div class="card-content">
+            <h3 class="card-title">Medication Management</h3>
+            <p>Our psychiatric providers work closely with you to find the right medication options when needed as part of a comprehensive treatment plan.</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-content">
+            <h3 class="card-title">Holistic Wellness</h3>
+            <p>Complementary services including meditation classes, nutrition counseling, and stress management techniques to support your overall wellbeing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        const teamMembers = [
-            {
-                name: "Arnav Sharma",
-                bio: "UI",
-                image: "arnav.jpg",
-                category: "leadership"
-            },
-            {
-                name: "Kushagra Harit",
-                bio: "Front-End",
-                image: "KushagraHarit-cell.jpg",
-                category: "development"
-            },
-            {
-                name: "Ujjwal Nimotra",
-                bio: "Designer",
-                image: "ujjwal.jpg",
-                category: "design"
-            },
-            {
-                name: "Abhishek Mishra",
-                bio: "Researcher",
-                image: "Abhishek.jpg",
-                category: "marketing"
-            }
-        ];
+    <section class="section container animated">
+      <h2 class="section-title">Meet Our Team</h2>
+      <p class="section-description">Our diverse team of licensed professionals brings expertise, compassion, and dedication to your mental health journey.</p>
+      
+      <div class="team">
+        <div class="team-member">
+          <img src="arnav.jpg" alt="Team Member" class="member-img">
+          <h3 class="member-name">Arnav Sharma</h3>
+          <p class="member-role">Frontend</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <img src="KushagraHarit-cell.jpg" alt="Team Member" class="member-img">
+          <h3 class="member-name">Kushagra Harit</h3>
+          <p class="member-role">Web Desinger</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <img src="vidhi.jpg" alt="Team Member" class="member-img">
+          <h3 class="member-name">Vidhi</h3>
+          <p class="member-role">Research</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        
+        
+      </div>
+    </section>
 
-        function createTeamMemberElements() {
-            const teamContainer = document.getElementById('teamContainer');
-            teamContainer.innerHTML = '';
+    <section class="section container animated">
+      <h2 class="section-title">Our Impact</h2>
+      <p class="section-description">Since our founding, we've been honored to support countless individuals on their journey to better mental health:</p>
+      
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number">5K+</div>
+          <div class="stat-text">Clients Served</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-number">15+</div>
+          <div class="stat-text">Licensed Therapists</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-number">25K+</div>
+          <div class="stat-text">Sessions Conducted</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-number">10+</div>
+          <div class="stat-text">Therapeutic Approaches</div>
+        </div>
+      </div>
+    </section>
 
-            teamMembers.forEach(member => {
-                const memberElement = document.createElement('div');
-                memberElement.className = `team-member ${member.category}`;
-                
-                memberElement.innerHTML = `
-                    <div class="member-image">
-                        <img src="${member.image}" alt="${member.name}">
-                    </div>
-                    <div class="member-info">
-                        <h3 class="member-name">${member.name}</h3>
-                        <p class="member-bio">${member.bio}</p>
-                        <div class="social-links">
-                            <a href="#" aria-label="LinkedIn">
-                                <i class="fab fa-linkedin"></i>
-                                LinkedIn
-                            </a>
-                            <a href="#" aria-label="Twitter">
-                                <i class="fab fa-twitter"></i>
-                                Twitter
-                            </a>
-                        </div>
-                    </div>
-                `;
-                
-                teamContainer.appendChild(memberElement);
-            });
-        }
+    <section class="section container animated">
+      <h2 class="section-title">Client Stories</h2>
+      <div class="testimonials">
+        <div class="testimonial-container">
+          <div class="testimonial">
+            <p class="testimonial-text">"Coming to TakeItEase was the best decision I made for my mental health. The compassionate care and personalized approach helped me develop coping skills for my anxiety that I use every day. I finally feel like I have the tools to manage my stress in healthy ways."</p>
+            <div class="testimonial-author">Jamie K.</div>
+            <div class="testimonial-role">Client since 2021</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        function setupFilters() {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
+    <section class="section container animated">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What types of mental health conditions do you treat?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            <p>We offer treatment for a wide range of conditions including anxiety, depression, PTSD, bipolar disorder, OCD, relationship issues, stress management, grief, and more. Our initial assessment will help determine the best approach for your specific needs.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Do you accept insurance?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Yes, we accept most major insurance plans and offer sliding scale fees for those without insurance coverage. Our administrative team can verify your benefits before your first appointment and explain any potential costs.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How do I know if therapy is right for me?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            <p>We offer complimentary 15-minute consultations to discuss your concerns and help determine if our services are a good fit for your needs. Therapy can benefit anyone looking to improve their mental wellbeing, whether you're dealing with a specific condition or simply seeking personal growth.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Do you offer virtual appointments?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Yes, we offer secure telehealth sessions that provide the same quality care as in-person appointments. This option provides flexibility and accessibility for clients who prefer receiving care from home or have transportation challenges.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    
-                    const filterValue = button.getAttribute('data-filter');
-                    filterTeamMembers(filterValue);
-                });
-            });
-        }
+    <section class="cta container animated">
+      <h2 class="cta-title">Ready to Begin Your Wellness Journey?</h2>
+      <p class="cta-text">Taking the first step toward better mental health is an act of courage. Our compassionate team is here to support you every step of the way.</p>
+      <button class="btn btn-primary">Schedule Your Consultation</button>
+    </section>
+  </main>
 
-        function filterTeamMembers(filter) {
-            const teamMembers = document.querySelectorAll('.team-member');
-            
-            teamMembers.forEach(member => {
-                if (filter === 'all' || member.classList.contains(filter)) {
-                    member.style.display = 'block';
-                } else {
-                    member.style.display = 'none';
-                }
-            });
-        }
+  <footer>
+    <div class="container">
+      <div class="footer-columns">
+        <div class="footer-column">
+          <h3>TakeItEase</h3>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Services</h3>
+          <ul class="footer-links">
+            <li><a href="#">Individual Therapy</a></li>
+            <li><a href="#">Group Therapy</a></li>
+            <li><a href="#"><li><a href="#">Individual Therapy</a></li>
+            <li><a href="#">Group Therapy</a></li>
+            <li><a href="#">Medication Management</a></li>
+            <li><a href="#">Wellness Programs</a></li>
+            <li><a href="#">Telehealth Options</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#">Mental Health Articles</a></li>
+            <li><a href="#">Self-Help Tools</a></li>
+            <li><a href="#">Community Support</a></li>
+            <li><a href="#">Crisis Information</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <address>
+            <p>123 Healing Street<br>Wellness City, WC 10001</p>
+            <p>Phone: (555) 123-4567</p>
+            <p>Email: info@takeitease.com</p>
+          </address>
+          <div class="social-icons">
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 TakeItEase Mental Wellness Center. All rights reserved.</p>
+        <ul class="legal-links">
+          
+        </ul>
+      </div>
+    </div>
+  </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+  <script>
+    // Mobile menu toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      document.getElementById('nav-menu').classList.toggle('active');
+    });
+
+    // FAQ accordion functionality
+    const faqItems = document.querySelectorAll('.faq-item');
     
-        function addScrollAnimation() {
-            const teamMembers = document.querySelectorAll('.team-member');
-            
-            teamMembers.forEach((member, index) => {
-                setTimeout(() => {
-                    member.style.opacity = '1';
-                    member.style.transform = 'translateY(0)';
-                }, index * 200);
-            });
-        }
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        item.classList.toggle('active');
+        const plusMinus = question.querySelector('span:last-child');
+        plusMinus.textContent = item.classList.contains('active') ? '-' : '+';
+      });
+    });
 
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            createTeamMemberElements();
-            setupFilters();
-            
-            
-            const teamMembers = document.querySelectorAll('.team-member');
-            teamMembers.forEach(member => {
-                member.style.opacity = '0';
-                member.style.transform = 'translateY(20px)';
-                member.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            });
-            
-            setTimeout(addScrollAnimation, 300);
-        });
-
+    // Animation on scroll
+    const animatedElements = document.querySelectorAll('.animated');
     
-        const navbar = document.getElementById('navbar');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 50) {
-                navbar.classList.add('sticky');
-            } else {
-                navbar.classList.remove('sticky');
-            }
-        });
-    </script>
+    function checkIfInView() {
+      animatedElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        if (elementTop < window.innerHeight - 100) {
+          element.classList.add('fade-in');
+        }
+      });
+    }
+    
+    // Initial check and add scroll listener
+    window.addEventListener('scroll', checkIfInView);
+    window.addEventListener('load', checkIfInView);
+  </script>
 </body>
-</html>
