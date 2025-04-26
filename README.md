@@ -1,9 +1,9 @@
-
+<img width="1440" alt="Screenshot 2025-04-18 at 10 22 22 AM" src="https://github.com/user-attachments/assets/5612f022-9805-42b2-91b3-713fbd9e0acf" /><img width="1440" alt="Screenshot 2025-04-18 at 10 22 22 AM" src="https://github.com/user-attachments/assets/402ecfad-2272-4f44-9bcd-2973affb9ae7" />
 # 🧘‍♂️ TakeItEase
 
 > *A serene, all-in-one platform to help you manage stress, practice mindfulness, and improve your mental well-being.*
 
-![TakeItEase Banner](./assets/banner.png) <!-- Replace with actual banner image -->
+
 
 ## 🌟 Features
 
@@ -21,12 +21,12 @@ Check out the live demo: [TakeItEase Live](https://your-demo-link.com)
 
 | Home Page | Meditation | Journal |
 |----------|------------|---------|
-| ![Home](./assets/home.png) | ![Meditation](./assets/meditation.png) | ![Journal](./assets/journal.png) |
+| ![Home](<img width="1440" alt="Screenshot 2025-04-18 at 10 22 22 AM" src="https://github.com/user-attachments/assets/178aa796-a3a1-4346-89e5-f0b90cd691fd" />) | ![Meditation]<img width="1440" alt="Screenshot 2025-04-18 at 10 22 11 AM" src="https://github.com/user-attachments/assets/b701060b-0246-4126-ac08-d9799824bce6" /> | ![Journal]<img width="1440" alt="Screenshot 2025-04-18 at 10 22 39 AM" src="https://github.com/user-attachments/assets/c84fa717-8500-4cf8-8c02-72158f00768a" /> |
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React, Tailwind CSS
-- **Backend:** Node.js, Express.js
+
+- **Frontend:** Html,css,js
 - **Database:** MongoDB / Firebase
 - **Auth:** Firebase Auth / OAuth
 - **APIs/Integrations:** ChatGPT, Spotify API (for ambient sounds)
