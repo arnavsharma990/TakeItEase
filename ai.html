@@ -637,8 +637,6 @@
         </div>
     </div>
     <script>
- // DOM Elements
-// DOM Elements
 // DOM Elements
 const messagesContainer = document.getElementById('messagesContainer');
 const messageInput = document.getElementById('messageInput');
@@ -884,6 +882,11 @@ function createSpeechVisualization() {
     const visualizationDiv = document.createElement('div');
     visualizationDiv.className = 'speech-visualization';
     visualizationDiv.id = 'speechVisualization';
+    visualizationDiv.style.position = 'fixed'; // Fixed position to prevent layout shifts
+    visualizationDiv.style.bottom = '80px'; // Position above the input area
+    visualizationDiv.style.left = '50%';
+    visualizationDiv.style.transform = 'translateX(-50%)';
+    visualizationDiv.style.zIndex = '100';
     
     const waveDiv = document.createElement('div');
     waveDiv.className = 'speech-wave';
@@ -903,7 +906,7 @@ function createSpeechVisualization() {
     
     visualizationDiv.appendChild(waveDiv);
     visualizationDiv.appendChild(statusDiv);
-    messagesContainer.appendChild(visualizationDiv);
+    document.body.appendChild(visualizationDiv); // Append to body instead of messagesContainer
     
     // Initially hide the visualization
     visualizationDiv.style.display = 'none';
@@ -947,25 +950,35 @@ function handleRecognitionStart() {
     updateSpeechStatus('Listening...');
 }
 
+// Temporary storage for the transcript
+let finalTranscript = '';
+
 // Handle recognition result event
 function handleRecognitionResult(event) {
-    const transcript = Array.from(event.results)
-        .map(result => result[0].transcript)
-        .join('');
+    let interimTranscript = '';
     
-    if (event.results[0].isFinal) {
-        // Final result received
-        if (messageInput) {
-            messageInput.value = transcript;
-            adjustTextareaHeight();
-            if (sendBtn) {
-                sendBtn.disabled = transcript.trim() === '';
-            }
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+        } else {
+            interimTranscript += event.results[i][0].transcript;
         }
-        updateSpeechStatus('Processing...');
+    }
+    
+    if (messageInput) {
+        // Show both final and interim transcripts in the input field
+        messageInput.value = finalTranscript + interimTranscript;
+        adjustTextareaHeight();
+        if (sendBtn) {
+            sendBtn.disabled = messageInput.value.trim() === '';
+        }
+    }
+    
+    // Update status with current transcript
+    if (interimTranscript) {
+        updateSpeechStatus('Listening: ' + interimTranscript);
     } else {
-        // Interim result
-        updateSpeechStatus('Listening: ' + transcript);
+        updateSpeechStatus('Listening...');
     }
 }
 
@@ -1023,6 +1036,19 @@ function handleRecognitionEnd() {
         micBtn.classList.remove('active');
     }
     
+    // Auto-send message if there's a final transcript
+    if (finalTranscript.trim() !== '' && messageInput) {
+        // Let's make sure the finalTranscript is set in the input
+        messageInput.value = finalTranscript;
+        
+        // Send the message
+        sendMessage();
+        
+        // Reset the finalTranscript
+        finalTranscript = '';
+    }
+    
+    // Hide visualization
     setTimeout(() => {
         const visualization = document.getElementById('speechVisualization');
         if (visualization) {
@@ -1308,7 +1334,15 @@ function checkDOMElements() {
 // INITIALIZATION AND EVENT HANDLERS
 // ------------------------
 
-document.addEventListener('DOMContentLoaded', function() {
+// Function to show welcome message
+function showWelcomeMessage() {
+    if (messagesContainer && messagesContainer.children.length === 0) {
+        addMessage("Hi there! I'm Ease, your mental health buddy. How are you feeling today?", 'ai');
+    }
+}
+
+// Initialize the page
+function initializePage() {
     // Initialize speech recognition
     initSpeechRecognition();
     
@@ -1356,6 +1390,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (speechSynthesis) {
                     speechSynthesis.cancel();
                 }
+                
+                // Show welcome message after reset
+                setTimeout(showWelcomeMessage, 100);
             }
         });
     }
@@ -1472,16 +1509,17 @@ document.addEventListener('DOMContentLoaded', function() {
         modelSelect.value = selectedModel;
     }
 
-    // Welcome message - delay to ensure DOM is fully loaded
-    setTimeout(() => {
-        if (messagesContainer && messagesContainer.children.length === 0) {
-            addMessage("Hi there! I'm Ease, your mental health buddy. How are you feeling today?", 'ai');
-        }
-    }, 500);
-});
+    // Show welcome message immediately
+    showWelcomeMessage();
+}
 
-// Check DOM elements on page load
+// Call initializePage on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', initializePage);
+
+// Add additional check on window load to ensure everything is initialized
+// Add additional check on window load to ensure everything is initialized
 window.addEventListener('load', function() {
+    // Check if DOM elements exist
     if (!checkDOMElements()) {
         console.error('Some required DOM elements are missing. The app may not function correctly.');
         
@@ -1492,9 +1530,19 @@ window.addEventListener('load', function() {
             errorDiv.textContent = 'The application could not load properly. Please check that all HTML elements are correctly defined.';
             errorDiv.style.color = 'red';
             errorDiv.style.padding = '20px';
+            errorDiv.style.margin = '20px';
             errorDiv.style.textAlign = 'center';
-            
+            errorDiv.style.border = '1px solid red';
+            errorDiv.style.borderRadius = '8px';
             messagesContainer.appendChild(errorDiv);
+        }
+    } else {
+        // Additional initialization if needed
+        showWelcomeMessage();
+        
+        // Make sure send button starts disabled if input is empty
+        if (sendBtn && messageInput) {
+            sendBtn.disabled = messageInput.value.trim() === '';
         }
     }
 });
