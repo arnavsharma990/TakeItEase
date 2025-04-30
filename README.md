@@ -21,7 +21,7 @@ Check out the live demo: [TakeItEase Live](https://your-demo-link.com)
 
 | Home Page | Meditation | Journal |
 |----------|------------|---------|
-| ![Home]<img width="1440" alt="Screenshot 2025-04-18 at 10 22 22 AM" src="https://github.com/user-attachments/assets/402ecfad-2272-4f44-9bcd-2973affb9ae7" /> | ![Meditation]<img width="1440" alt="Screenshot 2025-04-18 at 10 22 11 AM" src="https://github.com/user-attachments/assets/b701060b-0246-4126-ac08-d9799824bce6" /> | ![Journal]<img width="1440" alt="Screenshot 2025-04-18 at 10 22 39 AM" src="https://github.com/user-attachments/assets/c84fa717-8500-4cf8-8c02-72158f00768a" /> |
+| <img width="1440" alt="Screenshot 2025-04-18 at 10 22 22 AM" src="https://github.com/user-attachments/assets/402ecfad-2272-4f44-9bcd-2973affb9ae7" /> | <img width="1440" alt="Screenshot 2025-04-18 at 10 22 11 AM" src="https://github.com/user-attachments/assets/b701060b-0246-4126-ac08-d9799824bce6" /> | <img width="1440" alt="Screenshot 2025-04-18 at 10 22 39 AM" src="https://github.com/user-attachments/assets/c84fa717-8500-4cf8-8c02-72158f00768a" /> |
 
 ## 🛠️ Tech Stack
 

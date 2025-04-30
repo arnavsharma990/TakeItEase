@@ -34,6 +34,16 @@
       color: var(--text-color);
       line-height: 1.6;
     }
+    #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-color: #ccead9;
+        }
     
     .container {
       max-width: 1200px;
@@ -615,10 +625,11 @@
                 
                 <nav>
                     <ul id="nav-menu">
-                        <li><a href="home.html">Home</a></li>
+                        <li><a href="#home">Home</a></li>
                         <li><a href="#services">Services</a></li>
-                        <li><a href="Exercises.html">Our Therapies</a></li>
+                        <li><a href="#therapists">Our Therapists</a></li>
                         <li><a href="#resources">Resources</a></li>
+                        
                     </ul>
                 </nav>
                 
@@ -631,6 +642,7 @@
 
   <main>
     <section class="hero">
+      <div id="particles-js"></div>
       <div class="hero-bg"></div>
       <div class="hero-content animated">
         <h1 class="hero-title">Welcome to TakeIt Ease</h1>
@@ -895,6 +907,7 @@ Founded in 2025, our team of wellness experts has developed a range of therapeut
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
   <script>
     // Mobile menu toggle
     document.getElementById('menu-toggle').addEventListener('click', function() {
@@ -928,5 +941,117 @@ Founded in 2025, our team of wellness experts has developed a range of therapeut
     // Initial check and add scroll listener
     window.addEventListener('scroll', checkIfInView);
     window.addEventListener('load', checkIfInView);
+    particlesJS('particles-js', {
+  "particles": {
+    "number": {
+      "value": 60,             // Slightly reduced for a cleaner look
+      "density": {
+        "enable": true,
+        "value_area": 900      // Increased for better spacing
+      }
+    },
+    "color": {
+      "value": ["#4361ee", "#3f37c9", "#4895ef", "#4cc9f0"]  // Gradient color palette
+    },
+    "shape": {
+      "type": "circle",
+      "stroke": {
+        "width": 0.5,          // Subtle stroke for refinement
+        "color": ""     // Light color for elegance
+      },
+      "polygon": {
+        "nb_sides": 5
+      }
+    },
+    "opacity": {
+      "value": 0.4,            // More subtle opacity
+      "random": true,          // Random opacity for depth
+      "anim": {
+        "enable": true,        // Enable animation for premium feel
+        "speed": 0.8,          // Slower for sophistication
+        "opacity_min": 0.2,
+        "sync": false
+      }
+    },
+    "size": {
+      "value": 2.5,            // Slightly smaller particles
+      "random": true,
+      "anim": {
+        "enable": true,        // Animate size for visual interest
+        "speed": 2,
+        "size_min": 0.1,
+        "sync": false
+      }
+    },
+    "line_linked": {
+      "enable": true,
+      "distance": 180,         // Increased for more spacious connections
+      "color": "#7fbda0",      // Light pastel color for connections
+      "opacity": 0.5,          // More subtle connections
+      "width": 0.7             // Thinner lines for elegance
+    },
+    "move": {
+      "enable": true,
+      "speed": 1.5,            // Slower movement for sophistication
+      "direction": "none",
+      "random": true,          // Random movement for dynamic feel
+      "straight": false,
+      "out_mode": "bounce",    // Bounce for a contained premium feel
+      "bounce": true,
+      "attract": {
+        "enable": true,        // Enable attraction for organic movement
+        "rotateX": 600,
+        "rotateY": 1200
+      }
+    }
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": {
+        "enable": true,
+        "mode": "grab"
+      },
+      "onclick": {
+        "enable": true,
+        "mode": "repulse"      // Changed to repulse for a more dramatic effect
+      },
+      "resize": true
+    },
+    "modes": {
+      "grab": {
+        "distance": 180,       // Increased interaction distance
+        "line_linked": {
+          "opacity": 0.8       // More visible on interaction
+        }
+      },
+      "bubble": {
+        "distance": 400,
+        "size": 40,
+        "duration": 2,
+        "opacity": 8,
+        "speed": 3
+      },
+      "repulse": {
+        "distance": 200,
+        "duration": 0.8        // Longer repulse effect
+      },
+      "push": {
+        "particles_nb": 4
+      },
+      "remove": {
+        "particles_nb": 2
+      }
+    }
+  },
+  "retina_detect": true,
+  "background": {
+    "color": "#fefeff",        // Very subtle off-white background
+    "image": "",
+    "position": "50% 50%",
+    "repeat": "no-repeat",
+    "size": "cover"
+  }
+});
   </script>
 </body>
