@@ -3,15 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emergency Resources | Take It Ease</title>
+  <title>Emergency Resources | TakeIt Ease</title>
   <style>
     :root {
-      --primary-color: #a769ff;
-      --dark-bg: #0e1218;
-      --card-bg: #161b26;
-      --red-alert: #f74c4c;
-      --text-light: #f5f5f5;
-      --text-muted: #a0a0a0;
+      /* Light Theme Colors */
+      --mint-green: #e0f5e9;
+      --dark-mint: #7fbda0;
+      --light-mint: #c5e8d5;
+      --beige: #f7f3e9;
+      --dark-beige: #e8e0d0;
+      --accent-pink: #e76f9b;
+      --accent-purple: #9b6fad;
+      --text-dark: #2c3e50;
+      --text-medium: #546e7a;
+      --text-light: #b0bec5;
+      --shadow: rgba(0, 0, 0, 0.05);
+      --shadow-darker: rgba(0, 0, 0, 0.1);
+      --card-bg: var(--beige);
+      --body-bg: var(--mint-green);
+      --header-overlay: rgba(127, 189, 160, 0.3);
+      --input-bg: white;
+      --border-color: var(--light-mint);
+      --red-alert: #e76f9b;
+      
+      /* Transitions */
+      --transition-fast: 0.3s ease;
+      --transition-medium: 0.5s ease;
+      --transition-slow: 0.8s ease;
+    }
+    
+    /* Dark Theme Colors */
+    [data-theme="dark"] {
+      --mint-green: #1a2b32;
+      --dark-mint: #2c7a5d;
+      --light-mint: #1e3d33;
+      --beige: #2a2c2e;
+      --dark-beige: #1e2022;
+      --text-dark: #ecf0f1;
+      --text-medium: #b0bec5;
+      --text-light: #78909c;
+      --shadow: rgba(0, 0, 0, 0.2);
+      --shadow-darker: rgba(0, 0, 0, 0.3);
+      --card-bg: #2a2c2e;
+      --body-bg: #1a2b32;
+      --header-overlay: rgba(28, 40, 51, 0.7);
+      --input-bg: #2a2c2e;
+      --border-color: #3a3c3e;
+      --red-alert: #e76f9b;
     }
     
     * {
@@ -19,11 +57,12 @@
       padding: 0;
       box-sizing: border-box;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      transition: background-color var(--transition-fast), color var(--transition-fast);
     }
     
     body {
-      background-color: var(--dark-bg);
-      color: var(--text-light);
+      background-color: var(--body-bg);
+      color: var(--text-dark);
       min-height: 100vh;
     }
     
@@ -31,8 +70,9 @@
       display: flex;
       align-items: center;
       padding: 1rem 3rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      background-color: rgba(14, 18, 24, 0.95);
+      border-bottom: 1px solid var(--border-color);
+      background-color: var(--dark-mint);
+      box-shadow: 0 2px 8px var(--shadow);
     }
     
     .logo {
@@ -41,7 +81,7 @@
       gap: 0.5rem;
       font-size: 1.5rem;
       font-weight: bold;
-      color: var(--primary-color);
+      color: var(--text-dark);
       text-decoration: none;
     }
     
@@ -57,9 +97,27 @@
     }
     
     .nav-links a {
-      color: var(--text-light);
+      color: var(--text-dark);
       text-decoration: none;
       font-size: 0.95rem;
+      position: relative;
+      padding: 0.3rem 0;
+      font-weight: 500;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--accent-pink);
+      transition: width var(--transition-fast);
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
     }
     
     .right-nav {
@@ -74,7 +132,7 @@
       border-radius: 6px;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all var(--transition-fast);
       text-decoration: none;
       border: none;
       font-size: 0.95rem;
@@ -85,16 +143,26 @@
       color: white;
     }
     
+    .btn-red:hover {
+      background-color: var(--accent-purple);
+      transform: translateY(-2px);
+    }
+    
     .btn-outline {
       background-color: transparent;
-      border: 1px solid var(--text-light);
-      color: var(--text-light);
+      border: 1px solid var(--beige);
+      color: var(--beige);
+    }
+    
+    .btn-outline:hover {
+      background-color: var(--beige);
+      color: var(--dark-mint);
     }
     
     .theme-toggle {
       background: none;
       border: none;
-      color: var(--text-light);
+      color: var(--beige);
       cursor: pointer;
       font-size: 1.2rem;
       display: flex;
@@ -109,11 +177,12 @@
     }
     
     .alert-box {
-      background-color: rgba(247, 76, 76, 0.1);
+      background-color: rgba(231, 111, 155, 0.1);
       border: 1px solid var(--red-alert);
       padding: 1.5rem;
       border-radius: 8px;
       margin-bottom: 2rem;
+      box-shadow: 0 4px 12px var(--shadow);
     }
     
     .alert-box h2 {
@@ -124,6 +193,7 @@
     
     .alert-box p {
       margin-bottom: 1rem;
+      color: var(--text-medium);
     }
     
     .emergency-buttons {
@@ -136,19 +206,21 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      background-color: rgba(0, 0, 0, 0.25);
+      background-color: rgba(231, 111, 155, 0.1);
       border: 1px solid var(--red-alert);
       color: var(--red-alert);
       padding: 0.7rem 1rem;
       border-radius: 6px;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all var(--transition-fast);
       text-decoration: none;
     }
     
     .emergency-btn:hover {
-      background-color: rgba(247, 76, 76, 0.1);
+      background-color: var(--red-alert);
+      color: white;
+      transform: translateY(-2px);
     }
     
     .resources-grid {
@@ -163,16 +235,23 @@
       padding: 1.5rem;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px var(--shadow-darker);
     }
     
     .resource-title {
-      color: var(--red-alert);
+      color: var(--dark-mint);
       font-size: 1.3rem;
       margin-bottom: 0.5rem;
     }
     
     .resource-description {
-      color: var(--text-muted);
+      color: var(--text-medium);
       font-size: 0.9rem;
       margin-bottom: 1rem;
       flex-grow: 1;
@@ -184,23 +263,25 @@
       gap: 0.5rem;
       margin-bottom: 1rem;
       font-size: 1.1rem;
+      color: var(--text-dark);
     }
     
     .website-link {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: var(--dark-mint);
       padding: 0.5rem 1rem;
       border-radius: 6px;
-      color: var(--text-light);
+      color: var(--beige);
       text-decoration: none;
       font-size: 0.9rem;
-      transition: all 0.2s ease;
+      transition: all var(--transition-fast);
     }
     
     .website-link:hover {
-      background-color: rgba(255, 255, 255, 0.15);
+      background-color: var(--accent-purple);
+      transform: translateY(-2px);
     }
     
     .info-box {
@@ -208,10 +289,12 @@
       border-radius: 8px;
       padding: 1.5rem;
       margin-top: 2rem;
+      box-shadow: 0 4px 12px var(--shadow);
     }
     
     .info-box h3 {
       margin-bottom: 1rem;
+      color: var(--dark-mint);
     }
     
     .info-box ul {
@@ -221,11 +304,12 @@
     
     .info-box li {
       margin-bottom: 0.5rem;
+      color: var(--text-medium);
     }
     
     .emphasis {
       font-weight: bold;
-      color: var(--text-light);
+      color: var(--accent-purple);
     }
 
     @media (max-width: 768px) {
@@ -250,14 +334,13 @@
   <nav class="navbar">
     <a href="#" class="logo">
       <img src="/api/placeholder/32/32" alt="Take It Ease Logo">
-      Take It Ease
+      TakeIt Ease
     </a>
     <div class="nav-links">
-        <a href="home.html">Home</a>
+      <a href="home.html">Home</a>
       <a href="#">AI Chat</a>
       <a href="#">Community</a>
       <a href="#">Consultation</a>
-     
       <a href="#">Resources</a>
       <a href="Exercises.html">Wellness Tools</a>
     </div>
@@ -354,13 +437,19 @@
   </div>
 
   <script>
-    // Simple theme toggle functionality
+    // Theme toggle functionality
     const themeToggle = document.querySelector('.theme-toggle');
+    let currentTheme = "light";
+    
     themeToggle.addEventListener('click', () => {
-      if (themeToggle.textContent === '🌙') {
+      if (currentTheme === "light") {
+        document.body.setAttribute('data-theme', 'dark');
         themeToggle.textContent = '☀️';
+        currentTheme = "dark";
       } else {
+        document.body.removeAttribute('data-theme');
         themeToggle.textContent = '🌙';
+        currentTheme = "light";
       }
     });
   </script>
