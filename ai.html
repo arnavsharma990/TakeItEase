@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Take It Ease - AI Buddy</title>
+    <title>Take It Ease - AI Mental Health Buddy</title>
     <style>
         :root {
             --primary: #6366f1;
@@ -36,7 +37,7 @@
             padding: 2rem 1rem;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         header {
@@ -157,6 +158,78 @@
             background-color: var(--success);
         }
 
+        .settings-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .settings-container.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .settings-panel {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow);
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .settings-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select {
+            padding: 0.75rem;
+            border: 1px solid var(--light);
+            border-radius: 0.5rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+        }
+
+        .settings-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
         .messages {
             flex-grow: 1;
             padding: 1rem;
@@ -205,6 +278,7 @@
             padding: 0.75rem 1rem;
             border-radius: 1rem;
             max-width: calc(100% - 60px);
+            white-space: pre-wrap;
         }
 
         .user-content {
@@ -267,6 +341,9 @@
             outline: none;
             font-size: 1rem;
             transition: border-color 0.2s;
+            min-height: 44px;
+            max-height: 120px;
+            resize: none;
         }
 
         .message-input:focus {
@@ -292,35 +369,59 @@
             cursor: not-allowed;
         }
 
-        .ai-bubble {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
+        .breathing-exercise {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 1rem 0;
+        }
+
+        .breathing-circle {
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
-            font-size: 1.5rem;
-            box-shadow: var(--shadow);
-            cursor: pointer;
-            animation: pulse 2s infinite;
-            z-index: 100;
+            font-size: 1.2rem;
+            animation: breathing 8s infinite ease-in-out;
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+        @keyframes breathing {
+            0%, 100% {
+                transform: scale(1);
             }
-            70% {
-                box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+            50% {
+                transform: scale(1.5);
             }
-            100% {
-                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
-            }
+        }
+
+        .breathing-text {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-top: 1px solid var(--light);
+        }
+
+        .toolbar-btn {
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            color: var(--text);
+            transition: background-color 0.2s;
+        }
+
+        .toolbar-btn:hover {
+            background-color: var(--light);
         }
 
         @media (max-width: 768px) {
@@ -335,9 +436,113 @@
             
             .controls {
                 flex-wrap: wrap;
+                gap: 0.5rem;
                 justify-content: flex-end;
             }
+            
+            .breathing-circle {
+                width: 80px;
+                height: 80px;
+            }
         }
+
+         
+.input-container {
+    position: relative;
+    display: flex;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: var(--bg-light);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.mic-btn {
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+}
+
+.mic-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mic-btn.active {
+    color: #ff5151;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 81, 81, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 81, 81, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 81, 81, 0);
+    }
+}
+
+/* Visualization for speech recognition */
+.speech-visualization {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    transform: translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.speech-visualization.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.speech-wave {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.speech-bar {
+    width: 3px;
+    height: 20px;
+    margin: 0 2px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+    transition: height 0.1s ease;
+}
+
+.speech-status {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-color);
+}
+
+
     </style>
 </head>
 <body>
@@ -350,11 +555,14 @@
             <div class="controls">
                 <button id="homeBtn" class="secondary-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                    Back to Home
+                    Home
                 </button>
-                <button id="jokeBtn" class="secondary-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-                    Tell me a joke
+                <button id="breatheBtn" class="secondary-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    Breathing
+                </button>
+                <button id="settingsBtn" class="icon-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                 </button>
                 <button id="voiceToggleBtn" class="icon-btn active">
                     <svg id="voiceIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
@@ -374,305 +582,922 @@
             </div>
             
             <div id="messagesContainer" class="messages">
-                <!-- Messages will be added here dynamically -->
+                <!-- Messages will appear here -->
+            </div>
+            
+            <div id="breathingExercise" class="breathing-exercise" style="display: none;">
+                <div class="breathing-circle"></div>
+                <div class="breathing-text">Breathe in... Breathe out...</div>
             </div>
             
             <div class="input-container">
-                <input type="text" id="messageInput" class="message-input" placeholder="Type your message here..." aria-label="Type your message">
+                <textarea id="messageInput" class="message-input" placeholder="Type your message here..." aria-label="Type your message"></textarea>
                 <button id="sendBtn" class="send-btn" disabled>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 </button>
+
+           
             </div>
         </div>
     </div>
-
+    
+    <div id="settingsContainer" class="settings-container">
+        <div class="settings-panel">
+            <div class="settings-header">
+                <h2>Settings</h2>
+                <button id="closeSettingsBtn" class="icon-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="settings-form">
+                <div class="form-group">
+                    <label for="apiKeyInput">OpenAI API Key</label>
+                    <input type="password" id="apiKeyInput" placeholder="Enter your OpenAI API key">
+                </div>
+                <div class="form-group">
+                    <label for="modelSelect">AI Model</label>
+                    <select id="modelSelect">
+                        <option value="gpt-4-turbo">GPT-4 Turbo</option>
+                        <option value="gpt-4" selected>GPT-4</option>
+                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="voiceSelect">Voice</label>
+                    <select id="voiceSelect">
+                        <option value="default">Default</option>
+                        <!-- Voice options will be populated via JavaScript -->
+                    </select>
+                </div>
+            </div>
+            <div class="settings-footer">
+                <button id="cancelSettingsBtn" class="secondary-btn">Cancel</button>
+                <button id="saveSettingsBtn" class="primary-btn">Save Settings</button>
+            </div>
+        </div>
+    </div>
     <script>
-        // Array of jokes for the joke feature
-        const jokes = [
-            "Why don't scientists trust atoms? Because they make up everything!",
-            "I told my wife she was drawing her eyebrows too high. She looked surprised.",
-            "What do you call a fake noodle? An impasta!",
-            "Why did the scarecrow win an award? Because he was outstanding in his field!",
-            "I'm reading a book about anti-gravity. It's impossible to put down!",
-            "Why don't eggs tell jokes? They'd crack each other up.",
-            "I used to play piano by ear, but now I use my hands.",
-            "Why can't you give Elsa a balloon? Because she will let it go.",
-            "What's the best thing about Switzerland? I don't know, but the flag is a big plus.",
-            "How do you organize a space party? You planet."
-        ];
+ // DOM Elements
+// DOM Elements
+// DOM Elements
+const messagesContainer = document.getElementById('messagesContainer');
+const messageInput = document.getElementById('messageInput');
+const sendBtn = document.getElementById('sendBtn');
+const voiceToggleBtn = document.getElementById('voiceToggleBtn');
+const voiceIcon = document.getElementById('voiceIcon');
+const resetBtn = document.getElementById('resetBtn');
+const homeBtn = document.getElementById('homeBtn');
+const breatheBtn = document.getElementById('breatheBtn');
+const breathingExercise = document.getElementById('breathingExercise');
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsContainer = document.getElementById('settingsContainer');
+const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+const cancelSettingsBtn = document.getElementById('cancelSettingsBtn');
+const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+const apiKeyInput = document.getElementById('apiKeyInput');
+const modelSelect = document.getElementById('modelSelect');
+const voiceSelect = document.getElementById('voiceSelect');
+const micBtn = document.createElement('button'); // Create mic button dynamically
 
-        // Initial responses for common problems
-        const problemResponses = {
-            "stress": "I understand dealing with stress can be challenging. Would you like to talk more about what's causing your stress? Sometimes just talking about it can help provide clarity.",
-            "anxiety": "Anxiety can be really tough to deal with. Remember to take deep breaths when you're feeling anxious. Would it help to talk through what's making you feel anxious right now?",
-            "lonely": "I'm sorry you're feeling lonely. That's a difficult emotion to process. What kinds of things usually help you feel more connected to others?",
-            "tired": "Being tired can affect everything in your life. Have you been getting enough rest lately? What might be causing you to feel drained?",
-            "work": "Work challenges can be really frustrating. What specific aspects of work are bothering you the most right now?",
-            "relationship": "Relationships can be complex and sometimes difficult. Would you like to share more about what's happening? I'm here to listen."
+// Setup mic button
+micBtn.id = 'micBtn';
+micBtn.className = 'icon-button mic-button';
+micBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>';
+micBtn.title = 'Voice Input';
+
+// State variables
+let isVoiceEnabled = true;
+let isAITyping = false;
+let conversationHistory = [];
+let breathingActive = false;
+const speechSynthesis = window.speechSynthesis;
+let voices = [];
+let apiKey = localStorage.getItem('gemini_api_key') || '';
+let selectedModel = localStorage.getItem('selected_model') || 'gemini-1.5-pro';
+let selectedVoice = localStorage.getItem('selected_voice') || 'default';
+
+// Speech recognition variables
+let recognition;
+let isRecognizing = false;
+
+// Initialize Gemini client
+let geminiApi;
+
+function initializeGemini() {
+    if (!apiKey) {
+        console.error('No API key provided for Gemini');
+        return false;
+    }
+    
+    try {
+        geminiApi = {
+            apiKey: apiKey,
+            baseUrl: 'https://generativelanguage.googleapis.com/v1',
+            model: selectedModel
         };
+        return true;
+    } catch (error) {
+        console.error('Error initializing Gemini client:', error);
+        return false;
+    }
+}
 
-        // DOM elements
-        const messagesContainer = document.getElementById('messagesContainer');
-        const messageInput = document.getElementById('messageInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const voiceToggleBtn = document.getElementById('voiceToggleBtn');
-        const voiceIcon = document.getElementById('voiceIcon');
-        const jokeBtn = document.getElementById('jokeBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        const homeBtn = document.getElementById('homeBtn');
+// Initial initialization
+initializeGemini();
 
-        // State variables
-        let isVoiceEnabled = true; // Default to enabled
-        let isAITyping = false;
-        let conversationHistory = [];
+// Load saved settings
+if (apiKey) {
+    apiKeyInput.value = apiKey;
+}
 
-        // Initialize speech synthesis
-        const speechSynthesis = window.speechSynthesis;
-        let voices = [];
+if (selectedModel) {
+    modelSelect.value = selectedModel;
+}
 
-        // Get available voices
-        function loadVoices() {
-            voices = speechSynthesis.getVoices();
+// System message that defines Ease's personality
+const systemMessage = {
+    role: "system", 
+    content: `You are Ease, a supportive AI mental health buddy from the "Take It Ease" platform. Your primary purpose is to help users with their mental wellbeing.
+
+Key characteristics:
+- Very calm, soothing, and gentle tone
+- Compassionate and empathetic
+- Non-judgmental and accepting
+- Motivational without being pushy
+- Thoughtful and reflective
+- Patient and understanding
+- Optimistic but realistic
+
+Approach:
+- Listen actively and validate feelings
+- Ask open-ended questions to understand deeper concerns
+- Offer gentle encouragement and support
+- Provide practical coping strategies when appropriate
+- Avoid generic platitudes and empty reassurances
+- Share mindfulness techniques when relevant
+- Recognize when issues might require professional help
+
+Specifically for message formatting:
+- Use short paragraphs for readability
+- Include occasional gentle questions
+- Avoid overwhelming with too many suggestions at once
+- Use calming language and a warm tone
+- Your responses should feel like a warm hug in text form
+
+For safety:
+- If someone expresses serious self-harm or suicidal thoughts, compassionately recommend professional help
+- Do not attempt to diagnose medical or psychological conditions
+- Remind users you're an AI companion, not a replacement for therapy or medical advice when appropriate
+
+Your goal is to be a safe space where users can express themselves and find comfort, gentle guidance, and motivation to improve their wellbeing.`
+};
+
+// Initialize conversation array with system message
+let apiMessages = [systemMessage];
+
+// ------------------------
+// SPEECH SYNTHESIS FUNCTIONS
+// ------------------------
+
+function loadVoices() {
+    // Get available voices
+    voices = speechSynthesis.getVoices();
+    
+    // Clear existing options
+    while (voiceSelect.options.length > 1) {
+        voiceSelect.remove(1);
+    }
+    
+    // Add voice options
+    voices.forEach((voice, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = `${voice.name} (${voice.lang})`;
+        voiceSelect.appendChild(option);
+    });
+    
+    // Set selected voice if saved
+    if (selectedVoice !== 'default') {
+        voiceSelect.value = selectedVoice;
+    }
+}
+
+// Load voices when they're available
+if (speechSynthesis) {
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = loadVoices;
+    }
+    
+    // Try to load voices immediately as well
+    loadVoices();
+}
+
+function speakText(text) {
+    if (!isVoiceEnabled || !speechSynthesis) return;
+    
+    // Cancel any current speech
+    speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    if (selectedVoice !== 'default' && voices.length > 0) {
+        const voiceIndex = parseInt(selectedVoice);
+        if (!isNaN(voiceIndex) && voiceIndex >= 0 && voiceIndex < voices.length) {
+            utterance.voice = voices[voiceIndex];
         }
-
-        if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = loadVoices;
+    } else if (voices.length > 0) {
+        // Find a good voice (preferably female for "Ease")
+        const voice = voices.find(v => 
+            v.name.includes('Female') || 
+            v.name.includes('Google') || 
+            v.lang === 'en-US'
+        ) || voices[0];
+        
+        if (voice) {
+            utterance.voice = voice;
         }
+    }
+    
+    utterance.pitch = 1.1;
+    utterance.rate = 0.95; // Slightly slower for calming effect
+    utterance.volume = 1.0;
+    
+    try {
+        speechSynthesis.speak(utterance);
+    } catch (error) {
+        console.error('Speech synthesis error:', error);
+    }
+}
 
-        loadVoices();
+// ------------------------
+// SPEECH RECOGNITION FUNCTIONS
+// ------------------------
 
-        // Speak text function
-        function speakText(text) {
-            if (!isVoiceEnabled) return;
-            
-            // Cancel any ongoing speech
-            speechSynthesis.cancel();
-            
-            const utterance = new SpeechSynthesisUtterance(text);
-            
-            // Find a good voice (preferably female for "Ease")
-            const voice = voices.find(v => v.name.includes('Female') || v.name.includes('Google') || v.lang === 'en-US') || voices[0];
-            
-            if (voice) {
-                utterance.voice = voice;
+// Check if speech recognition is supported
+function isSpeechRecognitionSupported() {
+    return 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
+}
+
+// Initialize speech recognition
+function initSpeechRecognition() {
+    if (!isSpeechRecognitionSupported()) {
+        console.error('Speech recognition is not supported in this browser');
+        if (micBtn) {
+            micBtn.disabled = true;
+            micBtn.style.opacity = 0.5;
+            micBtn.title = 'Speech recognition not supported in this browser';
+        }
+        return false;
+    }
+    
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US'; // Default language
+    
+    // Create speech visualization elements
+    createSpeechVisualization();
+    
+    // Set up event handlers
+    recognition.onstart = handleRecognitionStart;
+    recognition.onresult = handleRecognitionResult;
+    recognition.onerror = handleRecognitionError;
+    recognition.onend = handleRecognitionEnd;
+    
+    // Add click event to mic button
+    if (micBtn) {
+        micBtn.addEventListener('click', toggleSpeechRecognition);
+    }
+    
+    return true;
+}
+
+// Create speech visualization UI elements
+function createSpeechVisualization() {
+    if (!messagesContainer) return;
+    
+    // Check if visualization already exists
+    if (document.getElementById('speechVisualization')) return;
+    
+    const visualizationDiv = document.createElement('div');
+    visualizationDiv.className = 'speech-visualization';
+    visualizationDiv.id = 'speechVisualization';
+    
+    const waveDiv = document.createElement('div');
+    waveDiv.className = 'speech-wave';
+    waveDiv.id = 'speechWave';
+    
+    // Create bars for visualization
+    for (let i = 0; i < 20; i++) {
+        const bar = document.createElement('div');
+        bar.className = 'speech-bar';
+        waveDiv.appendChild(bar);
+    }
+    
+    const statusDiv = document.createElement('div');
+    statusDiv.className = 'speech-status';
+    statusDiv.id = 'speechStatus';
+    statusDiv.textContent = 'Listening...';
+    
+    visualizationDiv.appendChild(waveDiv);
+    visualizationDiv.appendChild(statusDiv);
+    messagesContainer.appendChild(visualizationDiv);
+    
+    // Initially hide the visualization
+    visualizationDiv.style.display = 'none';
+}
+
+// Toggle speech recognition on/off
+function toggleSpeechRecognition() {
+    if (!recognition) {
+        if (!initSpeechRecognition()) return;
+    }
+    
+    if (isRecognizing) {
+        recognition.stop();
+    } else {
+        try {
+            recognition.start();
+        } catch (error) {
+            console.error('Speech recognition error:', error);
+            handleRecognitionError(error);
+        }
+    }
+}
+
+// Handle recognition start event
+function handleRecognitionStart() {
+    isRecognizing = true;
+    
+    // Update UI
+    if (micBtn) {
+        micBtn.classList.add('active');
+    }
+    
+    const visualization = document.getElementById('speechVisualization');
+    if (visualization) {
+        visualization.style.display = 'block';
+        visualization.classList.add('active');
+        animateWaveform();
+    }
+    
+    // Update status
+    updateSpeechStatus('Listening...');
+}
+
+// Handle recognition result event
+function handleRecognitionResult(event) {
+    const transcript = Array.from(event.results)
+        .map(result => result[0].transcript)
+        .join('');
+    
+    if (event.results[0].isFinal) {
+        // Final result received
+        if (messageInput) {
+            messageInput.value = transcript;
+            adjustTextareaHeight();
+            if (sendBtn) {
+                sendBtn.disabled = transcript.trim() === '';
             }
-            
-            utterance.pitch = 1.1;
-            utterance.rate = 1.0;
-            utterance.volume = 1.0;
-            
-            speechSynthesis.speak(utterance);
         }
+        updateSpeechStatus('Processing...');
+    } else {
+        // Interim result
+        updateSpeechStatus('Listening: ' + transcript);
+    }
+}
 
-        // Add a message to the UI
-        function addMessage(text, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}-message`;
-            
-            const avatarDiv = document.createElement('div');
-            avatarDiv.className = `message-avatar ${sender}-avatar`;
-            avatarDiv.innerHTML = sender === 'user' ? 
-                '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>' : 
-                'E';
-            
-            const contentDiv = document.createElement('div');
-            contentDiv.className = `message-content ${sender}-content`;
-            contentDiv.textContent = text;
-            
-            messageDiv.appendChild(avatarDiv);
-            messageDiv.appendChild(contentDiv);
-            
-            messagesContainer.appendChild(messageDiv);
-            
-            // Save to conversation history
-            conversationHistory.push({ sender, text });
-            
-            // Scroll to bottom
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            
-            // Speak AI messages if voice is enabled
-            if (sender === 'ai' && isVoiceEnabled) {
-                speakText(text);
+// Handle recognition error event
+function handleRecognitionError(event) {
+    isRecognizing = false;
+    
+    if (micBtn) {
+        micBtn.classList.remove('active');
+    }
+    
+    const visualization = document.getElementById('speechVisualization');
+    if (visualization) {
+        visualization.classList.remove('active');
+    }
+    
+    let errorMessage = 'Speech recognition error';
+    if (event.error) {
+        switch(event.error) {
+            case 'no-speech':
+                errorMessage = 'No speech detected';
+                break;
+            case 'aborted':
+                errorMessage = 'Recognition aborted';
+                break;
+            case 'not-allowed':
+                errorMessage = 'Microphone access denied';
+                break;
+            case 'network':
+                errorMessage = 'Network error';
+                break;
+            default:
+                errorMessage = `Error: ${event.error}`;
+        }
+    }
+    
+    console.error('Speech recognition error:', errorMessage);
+    
+    // Show error briefly
+    updateSpeechStatus(errorMessage);
+    setTimeout(() => {
+        const visualization = document.getElementById('speechVisualization');
+        if (visualization) {
+            visualization.classList.remove('active');
+            visualization.style.display = 'none';
+        }
+    }, 2000);
+}
+
+// Handle recognition end event
+function handleRecognitionEnd() {
+    isRecognizing = false;
+    
+    if (micBtn) {
+        micBtn.classList.remove('active');
+    }
+    
+    setTimeout(() => {
+        const visualization = document.getElementById('speechVisualization');
+        if (visualization) {
+            visualization.classList.remove('active');
+            visualization.style.display = 'none';
+        }
+    }, 1000);
+}
+
+// Update speech status text
+function updateSpeechStatus(text) {
+    const statusDiv = document.getElementById('speechStatus');
+    if (statusDiv) {
+        statusDiv.textContent = text;
+    }
+}
+
+// Animate waveform during speech recognition
+function animateWaveform() {
+    if (!isRecognizing) return;
+    
+    const waveDiv = document.getElementById('speechWave');
+    if (!waveDiv) return;
+    
+    const bars = waveDiv.querySelectorAll('.speech-bar');
+    
+    bars.forEach(bar => {
+        const height = Math.floor(Math.random() * 30) + 5;
+        bar.style.height = `${height}px`;
+    });
+    
+    setTimeout(animateWaveform, 100);
+}
+
+// ------------------------
+// CHAT FUNCTIONS
+// ------------------------
+
+// Message handling functions
+function addMessage(text, sender) {
+    if (!messagesContainer) {
+        console.error('messagesContainer not found');
+        return;
+    }
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}-message`;
+    
+    const avatarDiv = document.createElement('div');
+    avatarDiv.className = `message-avatar ${sender}-avatar`;
+    avatarDiv.innerHTML = sender === 'user' ? 
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>' : 
+        'E';
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.className = `message-content ${sender}-content`;
+    contentDiv.textContent = text;
+    
+    messageDiv.appendChild(avatarDiv);
+    messageDiv.appendChild(contentDiv);
+    
+    messagesContainer.appendChild(messageDiv);
+    
+    // Update conversation history
+    if (sender === 'user') {
+        apiMessages.push({ role: "user", content: text });
+    } else if (sender === 'ai') {
+        apiMessages.push({ role: "model", content: text });
+    }
+    
+    // Scroll to bottom
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    
+    // Speak AI messages if voice is enabled
+    if (sender === 'ai' && isVoiceEnabled) {
+        speakText(text);
+    }
+}
+
+function showTypingIndicator() {
+    if (!messagesContainer) return;
+    
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message ai-message typing-indicator';
+    typingDiv.id = 'typingIndicator';
+    
+    const avatarDiv = document.createElement('div');
+    avatarDiv.className = 'message-avatar ai-avatar';
+    avatarDiv.innerHTML = 'E';
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content ai-content';
+    
+    for (let i = 0; i < 3; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'typing-dot';
+        contentDiv.appendChild(dot);
+    }
+    
+    typingDiv.appendChild(avatarDiv);
+    typingDiv.appendChild(contentDiv);
+    
+    messagesContainer.appendChild(typingDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function removeTypingIndicator() {
+    const typingIndicator = document.getElementById('typingIndicator');
+    if (typingIndicator) {
+        typingIndicator.remove();
+    }
+}
+
+async function getAIResponse(messages) {
+    if (!apiKey) {
+        return "Please enter your Gemini API key in the settings to continue our conversation.";
+    }
+    
+    if (!geminiApi) {
+        const initialized = initializeGemini();
+        if (!initialized) {
+            return "Unable to initialize Gemini client. Please check your API key in settings.";
+        }
+    }
+
+    try {
+        // Convert messages to Gemini format
+        const contents = messages.map(msg => {
+            if (msg.role === "system") {
+                return {
+                    role: "user",
+                    parts: [{ text: msg.content }]
+                };
             }
+            return {
+                role: msg.role === "user" ? "user" : "model",
+                parts: [{ text: msg.content }]
+            };
+        });
+
+        // Construct the request URL
+        const url = `${geminiApi.baseUrl}/models/${selectedModel}:generateContent?key=${apiKey}`;
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                contents: contents,
+                generationConfig: {
+                    temperature: 0.9, // Makes responses more creative
+                    topP: 0.8,
+                    topK: 40,
+                    maxOutputTokens: 1024 // Limit response length
+                },
+                safetySettings: [
+                    {
+                        category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                        threshold: "BLOCK_ONLY_HIGH"
+                    },
+                    {
+                        category: "HARM_CATEGORY_HATE_SPEECH",
+                        threshold: "BLOCK_ONLY_HIGH"
+                    },
+                    {
+                        category: "HARM_CATEGORY_HARASSMENT",
+                        threshold: "BLOCK_ONLY_HIGH"
+                    },
+                    {
+                        category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                        threshold: "BLOCK_ONLY_HIGH"
+                    }
+                ]
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error?.message || 'API request failed');
         }
 
-        // Show typing indicator
-        function showTypingIndicator() {
-            const typingDiv = document.createElement('div');
-            typingDiv.className = 'message ai-message typing-indicator';
-            typingDiv.id = 'typingIndicator';
-            
-            const avatarDiv = document.createElement('div');
-            avatarDiv.className = 'message-avatar ai-avatar';
-            avatarDiv.innerHTML = 'E';
-            
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'message-content ai-content';
-            
-            for (let i = 0; i < 3; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'typing-dot';
-                contentDiv.appendChild(dot);
-            }
-            
-            typingDiv.appendChild(avatarDiv);
-            typingDiv.appendChild(contentDiv);
-            
-            messagesContainer.appendChild(typingDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        const data = await response.json();
+        
+        if (data.candidates?.[0]?.content?.parts?.[0]?.text) {
+            return data.candidates[0].content.parts[0].text;
+        } else {
+            throw new Error('No valid response content from Gemini API');
         }
+        
+    } catch (error) {
+        console.error('Error calling Gemini API:', error);
+        return `I apologize, but I'm having trouble connecting right now. Please check your API key or try again later. (Error: ${error.message || 'Unknown error'})`;
+    }
+}
 
-        // Remove typing indicator
-        function removeTypingIndicator() {
-            const typingIndicator = document.getElementById('typingIndicator');
-            if (typingIndicator) {
-                typingIndicator.remove();
-            }
+// Send message function
+async function sendMessage() {
+    const text = messageInput.value.trim();
+    if (text === '' || isAITyping || !messageInput) return;
+    
+    // Clear input
+    messageInput.value = '';
+    messageInput.style.height = 'auto';
+    
+    if (sendBtn) {
+        sendBtn.disabled = true;
+    }
+    
+    // Add user message to chat
+    addMessage(text, 'user');
+    
+    // Show typing indicator
+    isAITyping = true;
+    showTypingIndicator();
+    
+    try {
+        // Get AI response
+        const aiResponse = await getAIResponse(apiMessages);
+        
+        // Remove typing indicator and add AI message
+        removeTypingIndicator();
+        addMessage(aiResponse, 'ai');
+    } catch (error) {
+        console.error('Error in sendMessage:', error);
+        removeTypingIndicator();
+        addMessage("I'm having trouble responding right now. Please try again later.", 'ai');
+    } finally {
+        isAITyping = false;
+        if (sendBtn) {
+            sendBtn.disabled = false;
         }
+    }
+}
 
-        // Get AI response based on user input
-        function getAIResponse(userText) {
-            // Basic pattern matching for common issues
-            const userTextLower = userText.toLowerCase();
-            
-            // Check for common problem keywords
-            for (const [keyword, response] of Object.entries(problemResponses)) {
-                if (userTextLower.includes(keyword)) {
-                    return response;
-                }
-            }
-            
-            // Handle greetings
-            if (userTextLower.match(/^(hi|hello|hey|greetings)/)) {
-                return "Hello there! How are you feeling today? I'm here to listen if you want to talk about anything.";
-            }
-            
-            // Handle questions about the AI
-            if (userTextLower.includes("who are you") || userTextLower.includes("what are you")) {
-                return "I'm Ease, your AI buddy from Take It Ease. I'm here to listen, chat, and maybe even tell a joke or two if that would help!";
-            }
-            
-            // Handle thanks
-            if (userTextLower.match(/(thank|thanks)/)) {
-                return "You're very welcome! I'm glad I could help.";
-            }
-            
-            // Handle goodbyes
-            if (userTextLower.match(/(bye|goodbye|see you|farewell)/)) {
-                return "Take care! Remember I'm here whenever you need to talk. Wishing you well!";
-            }
-            
-            // Default responses for when no pattern matches
-            const defaultResponses = [
-                "Tell me more about that. I'm here to listen.",
-                "How does that make you feel?",
-                "That's interesting. Could you elaborate a bit more?",
-                "I'm here to support you. What would help you most right now?",
-                "I understand. Would you like to talk more about this?",
-                "Thank you for sharing that with me. How can I best support you?",
-                "I'm listening. Feel free to share whatever's on your mind."
-            ];
-            
-            return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+// Adjust textarea height based on content
+function adjustTextareaHeight() {
+    if (!messageInput) return;
+    
+    messageInput.style.height = 'auto';
+    messageInput.style.height = Math.min(messageInput.scrollHeight, 120) + 'px';
+}
+
+// Function to check if all required DOM elements exist
+function checkDOMElements() {
+    const requiredElements = {
+        'messagesContainer': messagesContainer,
+        'messageInput': messageInput,
+        'sendBtn': sendBtn,
+        'voiceToggleBtn': voiceToggleBtn,
+        'voiceIcon': voiceIcon,
+        'resetBtn': resetBtn,
+        'homeBtn': homeBtn,
+        'breatheBtn': breatheBtn,
+        'breathingExercise': breathingExercise,
+        'settingsBtn': settingsBtn,
+        'settingsContainer': settingsContainer,
+        'closeSettingsBtn': closeSettingsBtn,
+        'cancelSettingsBtn': cancelSettingsBtn,
+        'saveSettingsBtn': saveSettingsBtn,
+        'apiKeyInput': apiKeyInput,
+        'modelSelect': modelSelect,
+        'voiceSelect': voiceSelect
+    };
+    
+    const missingElements = [];
+    
+    for (const [name, element] of Object.entries(requiredElements)) {
+        if (!element) {
+            missingElements.push(name);
         }
+    }
+    
+    if (missingElements.length > 0) {
+        console.error('Missing DOM elements:', missingElements);
+        return false;
+    }
+    
+    return true;
+}
 
-        // Send message function
-        function sendMessage() {
-            const text = messageInput.value.trim();
-            if (text === '' || isAITyping) return;
-            
-            // Add user message to UI
-            addMessage(text, 'user');
-            
-            // Clear input
-            messageInput.value = '';
-            sendBtn.disabled = true;
-            
-            // Show AI is typing
-            isAITyping = true;
-            showTypingIndicator();
-            
-            // Simulate AI thinking and typing
-            setTimeout(() => {
-                removeTypingIndicator();
-                const response = getAIResponse(text);
-                addMessage(response, 'ai');
-                isAITyping = false;
-            }, 1500); // Delay to simulate typing
-        }
+// ------------------------
+// INITIALIZATION AND EVENT HANDLERS
+// ------------------------
 
-        // Tell a joke function
-        function tellJoke() {
-            if (isAITyping) return;
-            
-            isAITyping = true;
-            showTypingIndicator();
-            
-            setTimeout(() => {
-                removeTypingIndicator();
-                const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
-                addMessage(randomJoke, 'ai');
-                isAITyping = false;
-            }, 1000);
-        }
-
-        // Toggle voice function
-        function toggleVoice() {
-            isVoiceEnabled = !isVoiceEnabled;
-            
-            if (isVoiceEnabled) {
-                voiceToggleBtn.classList.add('active');
-                voiceIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
-                addMessage("Voice responses are now enabled.", 'ai');
-            } else {
-                voiceToggleBtn.classList.remove('active');
-                voiceIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>';
-                addMessage("Voice responses are now disabled.", 'ai');
-                
-                // Stop any ongoing speech
-                speechSynthesis.cancel();
-            }
-        }
-
-        // Reset conversation function
-        function resetConversation() {
-            // Clear messages
-            messagesContainer.innerHTML = '';
-            conversationHistory = [];
-            
-            // Add welcome message
-            setTimeout(() => {
-                addMessage("Hi there! I'm Ease, your friendly AI buddy. How can I help you today?", 'ai');
-            }, 300);
-        }
-
-        // Go to home page function
-        function goToHome() {
-            // Redirect specifically to home.html
-            window.location.href = "home.html";
-        }
-
-        // Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize speech recognition
+    initSpeechRecognition();
+    
+    // Update the input container to include the mic button
+    const inputContainer = document.querySelector('.input-container');
+    if (inputContainer && sendBtn && micBtn) {
+        // Insert mic button before send button
+        inputContainer.insertBefore(micBtn, sendBtn);
+    }
+    
+    // Event listeners
+    if (messageInput) {
         messageInput.addEventListener('input', () => {
-            sendBtn.disabled = messageInput.value.trim() === '';
+            if (sendBtn) {
+                sendBtn.disabled = messageInput.value.trim() === '';
+            }
+            adjustTextareaHeight();
         });
 
         messageInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !sendBtn.disabled) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (sendBtn && !sendBtn.disabled) {
+                    sendMessage();
+                }
+            }
+        });
+    }
+
+    if (sendBtn) {
+        sendBtn.addEventListener('click', () => {
+            if (!sendBtn.disabled) {
                 sendMessage();
             }
         });
+    }
 
-        sendBtn.addEventListener('click', sendMessage);
-        jokeBtn.addEventListener('click', tellJoke);
-        voiceToggleBtn.addEventListener('click', toggleVoice);
-        resetBtn.addEventListener('click', resetConversation);
-        homeBtn.addEventListener('click', goToHome);
-
-        // Initialize with welcome message
-        window.addEventListener('DOMContentLoaded', () => {
-            addMessage("Hi there! I'm Ease, your friendly AI buddy. How can I help you today?", 'ai');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset the conversation?')) {
+                if (messagesContainer) {
+                    messagesContainer.innerHTML = '';
+                }
+                apiMessages = [systemMessage];
+                if (speechSynthesis) {
+                    speechSynthesis.cancel();
+                }
+            }
         });
+    }
+
+    if (voiceToggleBtn && voiceIcon) {
+        voiceToggleBtn.addEventListener('click', () => {
+            isVoiceEnabled = !isVoiceEnabled;
+            voiceToggleBtn.classList.toggle('active');
+            
+            if (!isVoiceEnabled) {
+                if (speechSynthesis) {
+                    speechSynthesis.cancel();
+                }
+                voiceIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>';
+            } else {
+                voiceIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
+            }
+        });
+    }
+
+    if (breatheBtn && messagesContainer && breathingExercise) {
+        breatheBtn.addEventListener('click', () => {
+            breathingActive = !breathingActive;
+            
+            if (breathingActive) {
+                messagesContainer.style.display = 'none';
+                breathingExercise.style.display = 'flex';
+                breatheBtn.classList.add('active');
+            } else {
+                messagesContainer.style.display = 'flex';
+                breathingExercise.style.display = 'none';
+                breatheBtn.classList.remove('active');
+            }
+        });
+    }
+
+    if (homeBtn && messagesContainer && breathingExercise && breatheBtn) {
+        homeBtn.addEventListener('click', () => {
+            if (breathingActive) {
+                breathingActive = false;
+                messagesContainer.style.display = 'flex';
+                breathingExercise.style.display = 'none';
+                breatheBtn.classList.remove('active');
+            }
+        });
+    }
+
+    // Settings panel functionality
+    if (settingsBtn && settingsContainer) {
+        settingsBtn.addEventListener('click', () => {
+            settingsContainer.classList.add('active');
+        });
+    }
+
+    if (closeSettingsBtn && settingsContainer) {
+        closeSettingsBtn.addEventListener('click', () => {
+            settingsContainer.classList.remove('active');
+        });
+    }
+
+    if (cancelSettingsBtn && settingsContainer && apiKeyInput && modelSelect && voiceSelect) {
+        cancelSettingsBtn.addEventListener('click', () => {
+            settingsContainer.classList.remove('active');
+            
+            // Reset form to saved values
+            apiKeyInput.value = apiKey || '';
+            modelSelect.value = selectedModel;
+            voiceSelect.value = selectedVoice;
+        });
+    }
+
+    if (saveSettingsBtn && settingsContainer && apiKeyInput && modelSelect && voiceSelect) {
+        saveSettingsBtn.addEventListener('click', () => {
+            // Save settings
+            apiKey = apiKeyInput.value.trim();
+            selectedModel = modelSelect.value;
+            selectedVoice = voiceSelect.value;
+            
+            // Update Gemini client with new API key
+            initializeGemini();
+            
+            // Store in localStorage
+            localStorage.setItem('gemini_api_key', apiKey);
+            localStorage.setItem('selected_model', selectedModel);
+            localStorage.setItem('selected_voice', selectedVoice);
+            
+            settingsContainer.classList.remove('active');
+        });
+    }
+
+    // Update model select options for Gemini
+    if (modelSelect) {
+        // Clear existing options
+        while (modelSelect.options.length > 0) {
+            modelSelect.remove(0);
+        }
+        
+        // Add Gemini model options
+        const geminiModels = [
+            { value: 'gemini-1.5-pro', label: 'Gemini 1.5 Pro' },
+            { value: 'gemini-1.5-flash', label: 'Gemini 1.5 Flash' },
+            { value: 'gemini-1.0-pro', label: 'Gemini 1.0 Pro' },
+            { value: 'gemini-1.0-pro-vision', label: 'Gemini 1.0 Pro Vision' }
+        ];
+        
+        geminiModels.forEach(model => {
+            const option = document.createElement('option');
+            option.value = model.value;
+            option.textContent = model.label;
+            modelSelect.appendChild(option);
+        });
+        
+        // Set selected model
+        modelSelect.value = selectedModel;
+    }
+
+    // Welcome message - delay to ensure DOM is fully loaded
+    setTimeout(() => {
+        if (messagesContainer && messagesContainer.children.length === 0) {
+            addMessage("Hi there! I'm Ease, your mental health buddy. How are you feeling today?", 'ai');
+        }
+    }, 500);
+});
+
+// Check DOM elements on page load
+window.addEventListener('load', function() {
+    if (!checkDOMElements()) {
+        console.error('Some required DOM elements are missing. The app may not function correctly.');
+        
+        // Create error message for user if messagesContainer exists
+        if (messagesContainer) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = 'The application could not load properly. Please check that all HTML elements are correctly defined.';
+            errorDiv.style.color = 'red';
+            errorDiv.style.padding = '20px';
+            errorDiv.style.textAlign = 'center';
+            
+            messagesContainer.appendChild(errorDiv);
+        }
+    }
+});
     </script>
-</body>
-</html>
+
+
