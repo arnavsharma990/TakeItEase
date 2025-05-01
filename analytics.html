@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindPulse | Real-time Mental State Analytics</title>
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #10b981;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --accent-color: #ec4899;
+            --gradient-start: #6366f1;
+            --gradient-end: #10b981;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        header {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-icon {
+            font-size: 1.5rem;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4rem 0;
+            gap: 2rem;
+        }
+        
+        .hero-content {
+            flex: 1;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--text-primary), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .model-container {
+            flex: 1;
+            min-height: 400px;
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .model-placeholder {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .glb-tag {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--secondary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            color: white;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+        }
+        
+        .features {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-description {
+            color: var(--text-secondary);
+        }
+        
+        .how-it-works {
+            padding: 4rem 0;
+            background-color: rgba(30, 41, 59, 0.5);
+            border-radius: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-description {
+            color: var(--text-secondary);
+        }
+        
+        .analytics-preview {
+            padding: 4rem 0;
+        }
+        
+        .dashboard-preview {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .metric-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .metric-card {
+            background-color: rgba(15, 23, 42, 0.6);
+            border-radius: 0.8rem;
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .metric-title {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+        
+        .trend-positive {
+            color: var(--secondary-color);
+        }
+        
+        .trend-negative {
+            color: var(--accent-color);
+        }
+        
+        .graph-container {
+            background-color: rgba(15, 23, 42, 0.6);
+            border-radius: 0.8rem;
+            padding: 1.5rem;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .graph-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .graph-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .graph-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .graph-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(180deg, 
+                rgba(99, 102, 241, 0.1) 0%, 
+                rgba(16, 185, 129, 0.1) 100%);
+            border-radius: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .graph-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+            opacity: 0.5;
+            clip-path: polygon(
+                0% 80%,
+                10% 70%,
+                20% 85%,
+                30% 60%,
+                40% 70%,
+                50% 40%,
+                60% 50%,
+                70% 30%,
+                80% 45%,
+                90% 25%,
+                100% 35%,
+                100% 100%,
+                0% 100%
+            );
+        }
+        
+        .ai-recommendations {
+            padding: 4rem 0;
+        }
+        
+        .recommendations-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .recommendation-card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .recommendation-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .recommendation-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        .recommendation-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .recommendation-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section {
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-subtitle {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(99, 102, 241, 0.1);
+        }
+        
+        footer {
+            background-color: var(--card-bg);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-bottom {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(203, 213, 225, 0.1);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .float {
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+            }
+            
+            .model-container {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .step {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="logo-icon">⦿</span>
+                MindPulse
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#ai-recommendations">AI Insights</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Real-time Mental State Analytics</h1>
+                <p class="hero-subtitle">Connect your wearable band to our AI-powered system for instant mental health insights, personalized recommendations, and proactive support.</p>
+                <a href="#get-started" class="btn">Get Started</a>
+            </div>
+            <div class="model-container float">
+                <div class="model-placeholder">
+                    <span class="glb-tag">3D Model (GLB)</span>
+                    <p>Your 3D wearable device model will be displayed here</p>
+                    <img src="highres.glb" alt="3D Model Placeholder" />
+                </div>
+            </div>
+        </section>
+        
+        <section class="features" id="features">
+            <h2 class="section-title">Smart Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⌚</div>
+                    <h3 class="feature-title">Wearable Integration</h3>
+                    <p class="feature-description">Seamlessly connect to your wearable band to collect biometric data including heart rate, stress indicators, and brainwave patterns in real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">AI Analysis</h3>
+                    <p class="feature-description">Our advanced AI instantly analyzes your biometric data to identify stress patterns, anxiety triggers, and emotional states with remarkable accuracy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3 class="feature-title">Real-time Monitoring</h3>
+                    <p class="feature-description">Track your mental state throughout the day with intuitive visualizations and instant alerts when stress levels become elevated.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧘</div>
+                    <h3 class="feature-title">Personalized Interventions</h3>
+                    <p class="feature-description">Receive customized breathing exercises, guided meditations, and calming music based on your current mental state.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3 class="feature-title">Smart Journaling</h3>
+                    <p class="feature-description">Get AI-generated journaling prompts tailored to your emotional state, helping you process feelings and reduce stress.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍💼</div>
+                    <h3 class="feature-title">Live Support</h3>
+                    <p class="feature-description">Access immediate support through our AI chatbot or connect with a mental wellness mentor when high stress levels are detected.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="how-it-works" id="how-it-works">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Connect Your Wearable</h3>
+                        <p class="step-description">Pair your MindPulse band or other compatible wearable device with our platform. The device continuously monitors vital biometric data including heart rate variability, skin conductance, and brain activity patterns.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">AI Processes Your Data</h3>
+                        <p class="step-description">Our sophisticated AI engine analyzes your biometric data in real-time, identifying patterns that indicate various mental states including stress, anxiety, focus, and calm. The system gets smarter over time as it learns your personal patterns.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Receive Personalized Insights</h3>
+                        <p class="step-description">View your mental state trends and receive actionable insights through our intuitive dashboard. Understand your triggers and track progress over time.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Get Tailored Interventions</h3>
+                        <p class="step-description">Based on your current mental state, the system offers scientifically-backed interventions to help you regulate emotions and reduce stress. These may include guided breathing exercises, meditation sessions, or journal prompts.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Access Support When Needed</h3>
+                        <p class="step-description">During periods of elevated stress or anxiety, the system can automatically offer connections to our AI support chatbot or human wellness coaches for immediate assistance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="analytics-preview" id="dashboard">
+            <h2 class="section-title">Mental State Dashboard</h2>
+            <div class="dashboard-preview">
+                <div class="metric-row">
+                    <div class="metric-card">
+                        <div class="metric-title">Current Stress Level</div>
+                        <div class="metric-value">32%</div>
+                        <div class="metric-trend trend-positive">
+                            <span>↓</span> 12% lower than average
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Heart Rate</div>
+                        <div class="metric-value">72 BPM</div>
+                        <div class="metric-trend trend-positive">
+                            <span>↓</span> 5 BPM below baseline
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Focus Score</div>
+                        <div class="metric-value">85/100</div>
+                        <div class="metric-trend trend-positive">
+                            <span>↑</span> 15% improvement
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Recovery Rate</div>
+                        <div class="metric-value">94%</div>
+                        <div class="metric-trend trend-positive">
+                            <span>↑</span> Excellent recovery
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="graph-container">
+                    <div class="graph-header">
+                        <div class="graph-title">Mental State Trends</div>
+                        <div class="graph-period">Last 24 hours</div>
+                    </div>
+                    <div class="graph-content">
+                        <div class="graph-placeholder">
+                            <div class="graph-line"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-row">
+                    <div class="metric-card">
+                        <div class="metric-title">Stress Triggers Detected</div>
+                        <div class="metric-value">3</div>
+                        <div class="metric-trend trend-negative">
+                            <span>↑</span> Work meetings
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Calm Sessions</div>
+                        <div class="metric-value">2</div>
+                        <div class="metric-trend trend-positive">
+                            <span>↑</span> 15 minutes total
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Sleep Quality</div>
+                        <div class="metric-value">87%</div>
+                        <div class="metric-trend trend-positive">
+                            <span>↑</span> 7.4 hours
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Weekly Progress</div>
+                        <div class="metric-value">↗</div>
+                        <div class="metric-trend trend-positive">
+                            <span>↑</span> 23% improvement
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="ai-recommendations" id="ai-recommendations">
+            <h2 class="section-title">AI-Powered Recommendations</h2>
+            <div class="recommendations-container">
+                <div class="recommendation-card">
+                    <div class="recommendation-header">
+                        <div class="recommendation-icon">🧘</div>
+                        <h3 class="recommendation-title">Personalized Breathing Exercise</h3>
+                    </div>
+                    <p class="recommendation-description">Based on your current stress pattern, try this 4-7-8 breathing technique to activate your parasympathetic nervous system and reduce cortisol levels.</p>
+                    <a href="#" class="btn">Start Exercise</a>
+                </div>
+                <div class="recommendation-card">
+                    <div class="recommendation-header">
+                        <div class="recommendation-icon">🎵</div>
+                        <h3 class="recommendation-title">Curated Sound Therapy</h3>
+                    </div>
+                    <p class="recommendation-description">Your brainwave patterns indicate receptiveness to alpha wave stimulation. Listen to this customized binaural beat session to enhance relaxation.</p>
+                    <a href="#" class="btn">Listen Now</a>
+                </div>
+                <div class="recommendation-card">
+                    <div class="recommendation-header">
+                        <div class="recommendation-icon">📝</div>
+                        <h3 class="recommendation-title">Guided Journaling</h3>
+                    </div>
+                    <p class="recommendation-description">We've detected recurring thought patterns. Explore these personalized prompts to help process emotions and gain clarity.</p>
+                    <a href="#" class="btn">View Prompts</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="cta-section" id="get-started">
+            <h2 class="cta-title">Transform Your Mental Wellness Journey</h2>
+            <p class="cta-subtitle">Experience the power of real-time mental state detection combined with AI-driven personalized support.</p>
+            <div class="btn-group">
+                <a href="#" class="btn">Get Started</a>
+                <a href="#" class="btn btn-secondary">Book a Demo</a>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 class="footer-title">MindPulse</h3>
+                    <p>Next-generation mental wellness technology powered by wearable sensors and advanced AI.</p>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-title">Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a href="#features" class="footer-link">Features</a></li>
+                        <li><a href="#how-it-works" class="footer-link">How It Works</a></li>
+                        <li><a href="#dashboard" class="footer-link">Dashboard</a></li>
+                        <li><a href="#ai-recommendations" class="footer-link">AI Insights</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-title">Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Blog</a></li>
+                        <li><a href="#" class="footer-link">Research</a></li>
+                        <li><a href="#" class="footer-link">API Documentation</a></li>
+                        <li><a href="#" class="footer-link">Developer Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-title">Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                        <li><a href="#" class="footer-link">Contact</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MindPulse Technologies. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</html>
