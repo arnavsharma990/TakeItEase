@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TakeitEase - Mental Health Assessment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<body>
+      
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #a855f7;
+            --bg-dark: #111827;
+            --bg-light: #1f2937;
+            --text-light: #f9fafb;
+            --text-muted: #9ca3af;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            line-height: 1.7;
+            color: var(--text-light);
+            background-color: var(--bg-dark);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(120deg, var(--primary), var(--secondary));
+            box-shadow: var(--box-shadow);
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 80%);
+            pointer-events: none;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+        
+        header p {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+        
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .home-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .home-icon {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .assessment-card {
+            background-color: var(--bg-light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: var(--transition);
+        }
+        
+        .assessment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(99, 102, 241, 0.2);
+        }
+        
+        .question {
+            margin-bottom: 35px;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            background-color: rgba(31, 41, 55, 0.5);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.1);
+            background-color: rgba(31, 41, 55, 0.8);
+        }
+        
+        .question p {
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        
+        .options {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 12px 15px 12px 40px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+            flex: 1 0 45%;
+            min-width: 200px;
+            background-color: var(--bg-dark);
+            border-radius: 8px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+        }
+        
+        .option:hover {
+            background-color: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+        
+        .option input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        
+        .checkmark {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            height: 22px;
+            width: 22px;
+            background-color: var(--bg-dark);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .option:hover input ~ .checkmark {
+            border-color: var(--primary);
+        }
+        
+        .option input:checked ~ .checkmark {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .option input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .option .checkmark:after {
+            top: 6px;
+            left: 6px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+        }
+        
+        button {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 30px;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(to right, var(--primary-dark), var(--accent));
+        }
+        
+        #result {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            background-color: var(--bg-light);
+            box-shadow: var(--box-shadow);
+            animation: fadeIn 0.8s ease-out;
+            transition: var(--transition);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        #result h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        .score-display {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: var(--border-radius);
+        }
+        
+        .score-value {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            text-shadow: 0 2px 4px rgba(99, 102, 241, 0.3);
+        }
+        
+        .recommendation {
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 30px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .recommendation h4 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .recommendation::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--accent), var(--secondary));
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .recommendation ul {
+            margin: 15px 0 0;
+            padding-left: 20px;
+        }
+        
+        .recommendation li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .recommendation li::before {
+            content: '•';
+            color: var(--accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .progress-container {
+            margin: 25px 0;
+            height: 10px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(to right, #6366f1, #4f46e5, #8b5cf6, #a855f7);
+            border-radius: 50px;
+            transition: width 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .score-label {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 60px;
+            background-color: var(--bg-light);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .disclaimer {
+            background-color: rgba(168, 85, 247, 0.08);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 30px 0;
+            position: relative;
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        .disclaimer strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 30px 0;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .home-button {
+                top: 10px;
+                left: 10px;
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            
+            .assessment-card {
+                padding: 25px;
+                margin-bottom: 30px;
+            }
+            
+            .question {
+                padding: 20px;
+                margin-bottom: 25px;
+            }
+            
+            .option {
+                flex: 1 0 100%;
+                padding: 15px 15px 15px 45px;
+            }
+            
+            .score-value {
+                font-size: 3rem;
+            }
+            
+            button {
+                padding: 14px 28px;
+            }
+            
+            #result {
+                padding: 25px;
+            }
+        }
+        
+        /* Animation for questions */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .question {
+            animation: slideIn 0.3s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .question:nth-child(1) { animation-delay: 0.1s; }
+        .question:nth-child(2) { animation-delay: 0.2s; }
+        .question:nth-child(3) { animation-delay: 0.3s; }
+        .question:nth-child(4) { animation-delay: 0.4s; }
+        .question:nth-child(5) { animation-delay: 0.5s; }
+        .question:nth-child(6) { animation-delay: 0.6s; }
+        .question:nth-child(7) { animation-delay: 0.7s; }
+        .question:nth-child(8) { animation-delay: 0.8s; }
+        .question:nth-child(9) { animation-delay: 0.9s; }
+        .question:nth-child(10) { animation-delay: 1s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="home.html" class="home-button">
+              <style>
+                .home-button{
+                  text-decoration: none;
+                  color: inherit;
+                }
+              </style>
+                <svg class="home-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Home
+            </a>
+            <h1>TakeitEase</h1>
+            <p>Mental Health Assessment Tool</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="assessment-card">
+            <h2>Mental Wellbeing Assessment</h2>
+            <p>Complete this brief questionnaire to get insights into your current mental wellbeing. 
+            Please answer honestly for the most accurate results.</p>
+            
+            <div class="disclaimer">
+                <strong>Note:</strong> This assessment is meant for educational purposes only and is not a diagnostic tool. 
+                Please consult with a healthcare professional for proper evaluation and guidance.
+            </div>
+            
+            <form id="assessment-form">
+                <div class="question" id="q1">
+                    <p>1. Over the past two weeks, how often have you felt down, depressed, or hopeless?</p>
+                    <div class="options">
+                        <label class="option">
+                            Not at all
+                            <input type="radio" name="q1" value="0" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Several days
+                            <input type="radio" name="q1" value="1">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            More than half the days
+                            <input type="radio" name="q1" value="2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Nearly every day
+                            <input type="radio" name="q1" value="3">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question" id="q2">
+                    <p>2. How often have you had little interest or pleasure in doing things you usually enjoy?</p>
+                    <div class="options">
+                        <label class="option">
+                            Not at all
+                            <input type="radio" name="q2" value="0" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Several days
+                            <input type="radio" name="q2" value="1">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            More than half the days
+                            <input type="radio" name="q2" value="2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Nearly every day
+                            <input type="radio" name="q2" value="3">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question" id="q3">
+                    <p>3. How often have you felt nervous, anxious, or on edge?</p>
+                    <div class="options">
+                        <label class="option">
+                            Not at all
+                            <input type="radio" name="q3" value="0" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Several days
+                            <input type="radio" name="q3" value="1">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            More than half the days
+                            <input type="radio" name="q3" value="2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Nearly every day
+                            <input type="radio" name="q3" value="3">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question" id="q4">
+                    <p>4. How would you rate your ability to handle stress in the last month?</p>
+                    <div class="options">
+                        <label class="option">
+                            Excellent
+                            <input type="radio" name="q4" value="0" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Good
+                            <input type="radio" name="q4" value="1">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Fair
+                            <input type="radio" name="q4" value="2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Poor
+                            <input type="radio" name="q4" value="3">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question" id="q5">
+                    <p>5. How often have you had trouble falling or staying asleep, or sleeping too much?</p>
+                    <div class="options">
+                        <label class="option">
+                            Not at all
+                            <input type="radio" name="q5" value="0" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Several days
+                            <input type="radio" name="q5" value="1">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            More than half the days
+                            <input type="radio" name="q5" value="2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Nearly every day
+                            <input type="radio" name="q5" value="3">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question" id="q6">
+                    <p>6. How often have you felt tired or had little energy?</p>
+                    <div class="options">
+                        <label class="option">
+                            Not at all
+                            <input type="radio" name="q6" value="0" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Several days
+                            <input type="radio" name="q6" value="1">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            More than half the days
+                            <input type="radio" name="q6" value="2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Nearly every day
+                            <input type="radio" name="q6" value="3">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question" id="q7">
+                    <p>7. How often have you had trouble concentrating on things?</p>
+                    <div class="options">
+                        <label class="option">
+                            Not at all
+                            <input type="radio" name="q7" value="0" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Several days
+                            <input type="radio" name="q7" value="1">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            More than half the days
+                            <input type="radio" name="q7" value="2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Nearly every day
+                            <input type="radio" name="q7" value="3">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question" id="q8">
+                    <p>8. How would you rate your overall satisfaction with life currently?</p>
+                    <div class="options">
+                        <label class="option">
+                            Very satisfied
+                            <input type="radio" name="q8" value="0" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Somewhat satisfied
+                            <input type="radio" name="q8" value="1">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Somewhat dissatisfied
+                            <input type="radio" name="q8" value="2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Very dissatisfied
+                            <input type="radio" name="q8" value="3">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question" id="q9">
+                    <p>9. How often do you feel overwhelmed by your responsibilities or daily tasks?</p>
+                    <div class="options">
+                        <label class="option">
+                            Rarely
+                            <input type="radio" name="q9" value="0" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Sometimes
+                            <input type="radio" name="q9" value="1">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Often
+                            <input type="radio" name="q9" value="2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Almost always
+                            <input type="radio" name="q9" value="3">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question" id="q10">
+                    <p>10. How often do you engage in activities that bring you joy or relaxation?</p>
+                    
+                    <div class="options">
+                        <label class="option">
+                            Daily
+                            <input type="radio" name="q10" value="0" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Several times a week
+                            <input type="radio" name="q10" value="1">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            A few times a month
+                            <input type="radio" name="q10" value="2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="option">
+                            Rarely or never
+                            <input type="radio" name="q10" value="3">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" id="submit-btn">Calculate My Score</button>
+            </form>
+            
+            <div id="result">
+                <h3>Your Mental Wellbeing Assessment Results</h3>
+                
+                <div class="score-display">
+                    <div class="score-value" id="score">0</div>
+                    <p>out of 30</p>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                
+                <div class="score-label">
+                    <span>Excellent</span>
+                    <span>Good</span>
+                    <span>Moderate</span>
+                    <span>Concerning</span>
+                </div>
+                
+                <div id="interpretation"></div>
+                
+                <div class="recommendation">
+                    <h4>Recommendations:</h4>
+                    <div id="recommendations"></div>
+                </div>
+                
+                <div class="disclaimer">
+                    <strong>Important:</strong> This assessment is not a substitute for professional advice, diagnosis, 
+                    or treatment. If you're experiencing distress or mental health difficulties, please consult with 
+                    a qualified healthcare provider.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TakeitEase - Your Mental Wellbeing Partner</p>
+        </div>
+    </footer>
+
+    <script>
+       // Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded');
+    const form = document.getElementById('assessment-form');
+    const resultSection = document.getElementById('result');
+    
+    // Initially hide the result section
+    resultSection.style.display = 'none';
+    
+    // Make entire option clickable
+    document.querySelectorAll('.option').forEach(option => {
+        option.addEventListener('click', function(e) {
+            // Skip if clicking directly on the radio button (it already works)
+            if (e.target.tagName.toLowerCase() === 'input') {
+                return;
+            }
+            
+            // Find and select the radio input within this option
+            const radio = this.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+            }
+        });
+    });
+    
+    // Form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        console.log('Form submitted');
+        
+        // Calculate score
+        let score = 0;
+        let unanswered = [];
+        
+        // Check all questions are answered
+        for (let i = 1; i <= 10; i++) {
+            const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+            
+            if (selectedOption) {
+                score += parseInt(selectedOption.value);
+                console.log(`Question ${i}: ${selectedOption.value}`);
+            } else {
+                unanswered.push(i);
+                console.log(`Question ${i}: not answered`);
+            }
+        }
+        
+        console.log(`Total score: ${score}`);
+        
+        // If any questions are unanswered, alert the user
+        if (unanswered.length > 0) {
+            alert(`Please answer question${unanswered.length > 1 ? 's' : ''} ${unanswered.join(', ')}`);
+            return;
+        }
+        
+        // Make sure the result section is visible
+        resultSection.style.display = 'block';
+        console.log('Result section displayed:', resultSection.style.display);
+        
+        // Update score display
+        const scoreElement = document.getElementById('score');
+        scoreElement.textContent = score.toString();
+        console.log('Score element updated:', scoreElement.textContent);
+        
+        // Update progress bar width
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercentage = (score / 30) * 100;
+        progressBar.style.width = `${progressPercentage}%`;
+        console.log('Progress bar width set to:', `${progressPercentage}%`);
+        
+        // Provide interpretation based on score
+        const interpretation = document.getElementById('interpretation');
+        const recommendations = document.getElementById('recommendations');
+        
+        if (score <= 5) {
+            interpretation.innerHTML = '<p>Your mental wellbeing appears to be <strong>excellent</strong>. You seem to be handling life\'s challenges well and maintaining good emotional health.</p>';
+            recommendations.innerHTML = `
+                <ul>
+                    <li>Continue your current healthy habits and self-care practices</li>
+                    <li>Share your positive coping strategies with others who might benefit</li>
+                    <li>Consider mentoring or supporting others who may be struggling</li>
+                    <li>Stay vigilant about maintaining your mental health during future stressful periods</li>
+                </ul>
+            `;
+        } else if (score <= 10) {
+            interpretation.innerHTML = '<p>Your mental wellbeing appears to be <strong>good</strong>. While you\'re generally doing well, there may be some areas where additional self-care could be beneficial.</p>';
+            recommendations.innerHTML = `
+                <ul>
+                    <li>Identify any specific areas where you scored higher and consider targeted self-care</li>
+                    <li>Maintain regular physical activity and healthy sleep patterns</li>
+                    <li>Practice mindfulness or relaxation techniques for stress management</li>
+                    <li>Connect regularly with your support network</li>
+                </ul>
+            `;
+        } else if (score <= 20) {
+            interpretation.innerHTML = '<p>Your results suggest <strong>moderate</strong> challenges to your mental wellbeing. You may be experiencing some difficulties that are impacting your quality of life.</p>';
+            recommendations.innerHTML = `
+                <ul>
+                    <li>Consider speaking with a mental health professional for additional support</li>
+                    <li>Prioritize self-care activities including exercise, nutrition, and adequate sleep</li>
+                    <li>Establish a daily routine that includes relaxation and stress-reduction techniques</li>
+                    <li>Reach out to trusted friends or family members for support</li>
+                    <li>Consider joining a support group either in-person or online</li>
+                </ul>
+            `;
+        } else {
+            interpretation.innerHTML = '<p>Your results indicate <strong>concerning</strong> levels of distress. Your current mental wellbeing may be significantly impacted, and professional support is recommended.</p>';
+            recommendations.innerHTML = `
+                <ul>
+                    <li>We strongly encourage you to consult with a mental health professional soon</li>
+                    <li>If you're in immediate distress, contact a crisis helpline or emergency services</li>
+                    <li>Share your feelings with trusted loved ones who can offer support</li>
+                    <li>Focus on basic self-care: regular meals, adequate sleep, and gentle physical activity</li>
+                    <li>Limit exposure to stressors when possible and practice grounding techniques</li>
+                </ul>
+            `;
+        }
+        
+        // Scroll to results
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+        
+        // Disable the submit button to prevent multiple submissions
+        document.getElementById('submit-btn').disabled = true;
+    });
+    
+    // Reset form functionality
+    const homeButton = document.querySelector('.home-button');
+    homeButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Reset form
+        form.reset();
+        
+        // Hide results
+        resultSection.style.display = 'none';
+        
+        // Enable submit button again
+        document.getElementById('submit-btn').disabled = false;
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
+
+</script>
