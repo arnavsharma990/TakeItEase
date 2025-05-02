@@ -3,131 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TakeIt Ease</title>
+    <title>Takeit Ease</title>
     <style>
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body, html {
-            width: 100%;
-            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #e0f5e9;
+            font-family: 'Arial', sans-serif;
             overflow: hidden;
-            background-color: #121212;
-            font-family: Arial, sans-serif;
-            position: relative;
         }
         
-        spline-viewer {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: block;
+        .container {
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
         }
         
-        .button-container {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-        }
-        
-        .explore-btn {
-            background: linear-gradient(145deg, #6b00c2, #3a0066);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(107, 0, 194, 0.5);
-            transition: all 0.3s ease;
-        }
-        
-        .explore-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(107, 0, 194, 0.7);
-        }
-        
-        .explore-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.8);
+        .tagline {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
             opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards;
         }
         
-        .explore-btn.shine::after {
-            animation: ripple 1s ease-out;
+        .title {
+            color: #333;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards 0.5s;
         }
         
-        @keyframes ripple {
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1s;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #7DD6B5, #B0F2D2);
+            border-radius: 5px;
+            animation: progress 3s ease-in-out forwards 1.5s;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes progress {
             0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
+                width: 0;
+            }
+            80% {
+                width: 100%;
             }
             100% {
-                transform: scale(30, 30);
+                width: 100%;
+            }
+        }
+        
+        @keyframes fadeOut {
+            to {
                 opacity: 0;
             }
         }
         
-        .watermark-cover {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 200px;
-            height: 60px;
-            background-color: #000;
-            z-index: 10;
+        .container.exit {
+            animation: fadeOut 1s ease forwards;
         }
     </style>
 </head>
 <body>
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
-    <spline-viewer url="https://prod.spline.design/w-LwgHibL-9QdZeK/scene.splinecode" loading="eager"></spline-viewer>
-    
-    <div class="button-container">
-        <button class="explore-btn" id="exploreBtn">EXPLORE</button>
+    <div class="container" id="loadingContainer">
+        <h1 class="title">Takeit Ease</h1>
+        <p class="tagline">Because your mental health matters</p>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
     </div>
-    
-    <div class="watermark-cover"></div>
-    
+
     <script>
-        document.getElementById('exploreBtn').addEventListener('click', function(e) {
-            // Add shine effect
-            this.classList.add('shine');
+        // Wait for the progress animation to complete and then redirect
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBar = document.getElementById('progressBar');
+            const container = document.getElementById('loadingContainer');
             
-            // Redirect after animation
-            setTimeout(() => {
-                window.location.href = 'home.html';
-            }, 300);
+            // Listen for the animation end on the progress bar
+            progressBar.addEventListener('animationend', function() {
+                // Add exit animation
+                container.classList.add('exit');
+                
+                // Wait for exit animation to complete before redirecting
+                setTimeout(function() {
+                    window.location.href = 'home.html';
+                }, 1000);
+            });
         });
-        
-        // Remove shine class after animation completes
-        document.getElementById('exploreBtn').addEventListener('animationend', function() {
-            this.classList.remove('shine');
-        });
-        
-        // Force immediate load
-        window.onload = function() {
-            document.querySelector('spline-viewer').setAttribute('loading', 'eager');
-            document.querySelector('spline-viewer').style.visibility = 'visible';
-        };
     </script>
 </body>
 </html>

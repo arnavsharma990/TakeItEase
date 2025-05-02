@@ -484,6 +484,242 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
+      <style>
+        .activity-notifications {
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
+          z-index: 1000;
+          max-width: 300px;
+        }
+        
+        .activity-notification {
+          background-color: #f0faf5;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          padding: 12px 16px;
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          transform: translateX(-120%);
+          opacity: 0;
+          transition: all 0.5s ease;
+          border-left: 4px solid #4ade80;
+        }
+        
+        .activity-notification.show {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        
+        .notification-avatar {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background-color: #dcfce7;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 12px;
+          flex-shrink: 0;
+        }
+        
+        .notification-avatar i {
+          color: #4ade80;
+          font-size: 16px;
+        }
+        
+        .notification-content {
+          flex: 1;
+        }
+        
+        .notification-content p {
+          margin: 0;
+          font-size: 14px;
+          color: #334155;
+          font-weight: 500;
+        }
+        
+        .notification-content .timestamp {
+          font-size: 12px;
+          color: #64748b;
+          margin-top: 2px;
+        }
+        
+        .notification-close {
+          color: #64748b;
+          background: none;
+          border: none;
+          cursor: pointer;
+          margin-left: 10px;
+          padding: 4px;
+          font-size: 14px;
+          opacity: 0.7;
+          transition: opacity 0.2s;
+        }
+        
+        .notification-close:hover {
+          opacity: 1;
+        }
+        </style>
+        
+        <!-- Add the container for notifications -->
+        <div id="activityNotifications" class="activity-notifications"></div>
+        
+        <!-- Font Awesome for icons -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+        
+        <script>
+        // Array of notification data for mental health support website
+        const notificationData = [
+          {
+              name: "Tanish P.",
+              action: "just purchased Premium support plan",
+              avatar: "star", // star icon
+              time: "Just now"
+          },
+          {
+              name: "Khushi M.",
+              action: "completed her 30-day meditation streak",
+              avatar: "peace", // peace icon
+              time: "2 minutes ago"
+          },
+          {
+              name: "Arjun S.",
+              action: "successfully logged for 50 days in a row",
+              avatar: "calendar", // calendar icon
+              time: "5 minutes ago"
+          },
+          {
+              name: "Priya K.",
+              action: "shared a recovery milestone",
+              avatar: "heart", // heart icon
+              time: "10 minutes ago"
+          },
+          {
+              name: "Rahul D.",
+              action: "completed their first therapy session",
+              avatar: "user", // user icon
+              time: "15 minutes ago"
+          },
+          {
+              name: "Ananya T.",
+              action: "achieved 7 days anxiety-free",
+              avatar: "smile", // smile icon
+              time: "3 minutes ago"
+          },
+          {
+              name: "Vikram R.",
+              action: "joined a support group",
+              avatar: "users", // users icon
+              time: "8 minutes ago"
+          },
+          {
+              name: "Divya W.",
+              action: "shared a positive affirmation",
+              avatar: "comment", // comment icon
+              time: "Just now"
+          },
+          {
+              name: "Meera P.",
+              action: "is feeling better today",
+              avatar: "sun", // sun icon
+              time: "12 minutes ago"
+          },
+          {
+              name: "Karan S.",
+              action: "completed a self-care checklist",
+              avatar: "check", // check icon
+              time: "7 minutes ago"
+          }
+        ];
+        
+        // Function to create a notification element
+        function createNotification(data) {
+          const notification = document.createElement('div');
+          notification.className = 'activity-notification';
+          
+          // Get icon class based on avatar type
+          let iconClass = 'fa-user';
+          if (data.avatar === 'calendar') iconClass = 'fa-calendar-check';
+          if (data.avatar === 'star') iconClass = 'fa-star';
+          if (data.avatar === 'check') iconClass = 'fa-check-circle';
+          if (data.avatar === 'users') iconClass = 'fa-users';
+          if (data.avatar === 'heart') iconClass = 'fa-heart';
+          if (data.avatar === 'smile') iconClass = 'fa-face-smile';
+          if (data.avatar === 'peace') iconClass = 'fa-hand-peace';
+          if (data.avatar === 'comment') iconClass = 'fa-comment-dots';
+          if (data.avatar === 'sun') iconClass = 'fa-sun';
+          
+          notification.innerHTML = `
+              <div class="notification-avatar">
+                  <i class="fas ${iconClass}"></i>
+              </div>
+              <div class="notification-content">
+                  <p><strong>${data.name}</strong> ${data.action}</p>
+                  <div class="timestamp">${data.time}</div>
+              </div>
+              <button class="notification-close">
+                  <i class="fas fa-times"></i>
+              </button>
+          `;
+          
+          return notification;
+        }
+        
+        // Function to show a random notification
+        function showRandomNotification() {
+          const container = document.getElementById('activityNotifications');
+          if (!container) return;
+          
+          // Select random notification data
+          const randomIndex = Math.floor(Math.random() * notificationData.length);
+          const data = notificationData[randomIndex];
+          
+          // Create notification element
+          const notification = createNotification(data);
+          container.appendChild(notification);
+          
+          // Trigger animation to show the notification
+          setTimeout(() => {
+              notification.classList.add('show');
+          }, 100);
+          
+          // Add event listener to close button
+          const closeBtn = notification.querySelector('.notification-close');
+          closeBtn.addEventListener('click', () => {
+              notification.classList.remove('show');
+              setTimeout(() => {
+                  container.removeChild(notification);
+              }, 500);
+          });
+          
+          // Auto-remove notification after 5 seconds
+          setTimeout(() => {
+              if (notification.parentNode === container) {
+                  notification.classList.remove('show');
+                  setTimeout(() => {
+                      if (notification.parentNode === container) {
+                          container.removeChild(notification);
+                      }
+                  }, 500);
+              }
+          }, 5000);
+        }
+        
+        // Start showing notifications after page load
+        document.addEventListener('DOMContentLoaded', () => {
+          // Show first notification after 3 seconds
+          setTimeout(() => {
+              showRandomNotification();
+              
+              // Then show a new notification every 8-15 seconds
+              setInterval(() => {
+                  showRandomNotification();
+              }, Math.random() * 7000 + 8000); // Random interval between 8-15 seconds
+          }, 3000);
+        });
+        </script>
       <div class="footer-column">
         <h3 class="footer-title">Services</h3>
         <ul class="footer-links">
